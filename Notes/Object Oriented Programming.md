@@ -5,6 +5,15 @@
 ## Difference between OOP and Procedural Programming
 
 
+| OOP                                                                                                   | POP                                                                                           |
+| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| program is structured into classes and objects                                                        | program is divided into small functions                                                       |
+| follows a bottom up design, which involves building individual objects first and then connecting them | follows top-down design, i.e. it starts with the main task and breaks it into smaller modules |
+| data security is high                                                                                 | data security is low                                                                          |
+| high code reusability                                                                                 | low code reusability                                                                          |
+| scales exceptionally well                                                                             | becomes difficult to maintain and scale                                                       |
+| adding new features is highly flexible                                                                | adding new data requires modifying existing functions                                         |
+
 
 ## What is an Object?
 - object is a single item in a computer program
