@@ -29,7 +29,7 @@ print(p.age) # will throw error
 **Note**: Private properties cannot be accessed directly from outside the class.
 
 **Solution?**
-To access a private property, we can create a **getter** method.
+To access a private property from outer code, we can create a **getter** method.
 ```
 class Person:
     def __init__(self,name,age):
@@ -66,4 +66,32 @@ p.set_age(19)
 print(p.get_age())
 ```
 
+**Note**: Name Mangling can bypass this, though not advised
+
+```
+class Dog:
+    def __action(self):
+        return "bark"
+    
+d = Dog()
+print(d._Dog__action()) # not recommended
+```
 # Protected Properties
+- convention for protected properties using a single underscore _ prefix.
+- is just a convention, which tells other programmers that the property is intended for internal use, but python doesnt enforce this restriction.
+- intended for the use inside classes and by subclasses
+
+```
+class Person:
+    def __init__(self,name,salary):
+        self.name = name
+        self._salary = salary
+class Emp(Person): # child class
+    def get_salary(self):
+        return self._salary
+    
+p = Person("Linus",50000)
+e = Emp("John",6000)
+print(p.name,p._salary)# can access but shouldnt
+print(e.get_salary()) # correct approach
+```
