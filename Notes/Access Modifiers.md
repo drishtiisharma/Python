@@ -1,4 +1,4 @@
-**Access modifier**s in Python control which parts of a class can be accessed from **outside the class**, from **within the class**, or **by subclasses**. They help control how data and methods are accessed and used.
+**Access modifiers** in Python control which parts of a class can be accessed from **outside the class**, from **within the class**, or **by subclasses**. They help control how data and methods are accessed and used.
 # Types of Access Modifiers
 ### Public Properties
 -  Members (variables or methods) declared as public can be accessed from anywhere in the program.
@@ -64,7 +64,7 @@ d.get_action()
 ```
 
 Here, Python automatically applies the **Name Mangling** to it behind the scenes.
-That is, internally Python changes: __ action to _ Dog __ action (We don't need to write this ourselves). It does so to avoid the accidental name conflicts with subclasses or other attributes/methods.
+That is, internally Python changes: `__action` to  `_Dog__action` (We don't need to write this ourselves). It does so to avoid the accidental name conflicts with subclasses or other attributes/methods.
 
 **Note**: Name Mangling happens to both variables and methods
 

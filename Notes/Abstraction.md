@@ -6,7 +6,7 @@
 - python mechanism provided by the **abc** module
 - allows us to create abstract classes.
 - lets us define abstract methods that child classes must implement.
-- prevents creating an object of the abstract class directly.
+- prevents direct instantiation of an abstract class when it contains unimplemented abstract methods.
 # Implementation 
 ## Abstract Classes
 - is a class that acts as a blueprint for other classes.

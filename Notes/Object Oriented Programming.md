@@ -1,4 +1,4 @@
-
+## Introduction
 - Python is an object oriented programming language
 - Object oriented means building computer programs using small, independent packages called objects that act like real-world things.'
 
@@ -13,9 +13,10 @@
 | high code reusability                                                                                 | low code reusability                                                                          |
 | scales exceptionally well                                                                             | becomes difficult to maintain and scale                                                       |
 | adding new features is highly flexible                                                                | adding new data requires modifying existing functions                                         |
+| Pure  OOP languages: Java, C#, Ruby, Smalltalk                                                        | Pure POP languages: C, Pascal, FORTRAN, COBOL                                                 |
+Languages that support both Paradigms : Python, C++, JavaScript, PHP
 
-
-## What is an Object?
+## What is an Object? (generally)
 - object is a single item in a computer program
 - groups related information and actions together in one place
 - helps organize code so it is easier to read and change
@@ -87,7 +88,7 @@ Similarly, we can create multiple objects and each object is independent and has
 class definitions cannot be empty but for some reason if our class is empty we can simply use the ***pass*** statement to avoid getting an error
 
 ___
-## The __ init __ () method
+## The `__init__ ()` method
 - All the classes have a built-in method called the ___ init __ () method
 - is a special method that runs automatically when we create an object
 - used to assign values to the object properties or to perform actions that are necessary when the object is being created
@@ -123,7 +124,7 @@ Difference between Method and a Function
 
 **Note**: All methods must have **self** as their first parameter
 
-## The __ str __ () Method
+## The `__str__()` Method
  why do we use __ str __()
  - defines the human readable representation of an object
  - mainly used when we want to print an object directly

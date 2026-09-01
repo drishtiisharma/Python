@@ -5,6 +5,9 @@
 - hides the internal implementation details of the class.
 - main purpose is to provide data protection and controlled access.
 
+> [!NOTE]
+> **Definition** : Encapsulation is the practice of bundling data and methods into a single class while restricting direct access to prevent accidental modification.
+> 
 
 # Need of Encapsulation
 - prevents accidental and unwanted changes to the important data.
