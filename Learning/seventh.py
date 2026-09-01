@@ -420,7 +420,7 @@
 # print(s.name,s.rno,s.branch,s.course)
 
 # ------------------------------------- #
-## POLYMORPHISM ##+
+## POLYMORPHISM ##
 
 # function polymorphism
 # def show(c):
@@ -509,14 +509,61 @@
 #     x.role()
 
 # compile time polymorphism
-class Calculator:
-    def prod(self,a=4,b=5,*args):
-        res = a*b 
-        for x in args:
-            res *= x
-        return res
+# class Calculator:
+#     def prod(self,a=4,b=5,*args):
+#         res = a*b 
+#         for x in args:
+#             res *= x
+#         return res
 
-c = Calculator()
-print(c.prod())
-print(c.prod(10))
-print(c.prod(20,30,5))
+# c = Calculator()
+# print(c.prod())
+# print(c.prod(10))
+# print(c.prod(20,30,5))
+
+# ------------------------------------- #
+## Inner Classes ##
+
+# class Outer:
+#     def show(self):
+#         print('outer')
+    
+#     class Inner:
+#         def display(self):
+#             print('inner')
+
+# o = Outer()
+# i = o.Inner()
+# o.show()
+# i.display()
+
+# class Outer:
+#     def __init__(self):
+#         self.name = 'drishti'
+
+#     class Inner:
+#         def __init__(self,outer):
+#             self.outer = outer
+#         def display(self):
+#             print(self.outer.name)
+
+# o = Outer()
+# i = o.Inner(o)
+# i.display()
+
+## multiple inner classes
+
+class Comp:
+    class Cpu:
+        def process(self):
+            print("cpu is processing")
+    class Ram:
+        def store(self):
+            print("ram is storing data")
+
+c = Comp()
+cpu = c.Cpu()
+ram = c.Ram()
+
+cpu.process()
+ram.store()
