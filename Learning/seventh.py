@@ -419,3 +419,91 @@
 # s = Student("Drishti",101,'AIML',"CSE")
 # print(s.name,s.rno,s.branch,s.course)
 
+# ------------------------------------- #
+## POLYMORPHISM ##+
+
+# function polymorphism
+# def show(c):
+#     print(type(c),len(c))
+
+# show("helloo") # string
+# show([10,'a',20,30]) # list
+# show( # dict
+#     {
+#         'name' : 'drishti',
+#         'age' : 22
+#     }
+# )
+# show((10.20,30,450)) # tuple
+
+# class polymorphism
+
+# class Dog:
+#     def sound(self):
+#         print("woof")
+# class Cat:
+#     def sound(self):
+#         print("meow")
+# class Duck:
+#     def sound(self):
+#         print("quack")
+
+# d = Dog()
+# c = Cat()
+# du = Duck()
+
+# for x in (d,c,du):
+#     x.sound() 
+
+# inherited class polymorphism
+# class Vehicle:
+#     def move(self):
+#         pass
+# class Car(Vehicle):
+#     def move(self):
+#         print(("drives"))
+# class Ship(Vehicle):
+#     def move(self):
+#         print("sails")
+# class Plane((Vehicle)):
+#     def move(self):
+#         print("flies")
+
+# c= Car()
+# s = Ship()
+# p = Plane()
+
+# for x in (c,s,p):
+#     x.move()
+
+# class Cat:
+#     def sound(self):
+#         print("meow")
+# class Fox:
+#     def sound(self):
+#         print("Wa-pa-pa-pa-pa-pow!")
+
+# c1 = Cat()
+# f1 = Fox()
+
+# for x in (c1,f1):
+#     x.sound()
+
+
+class Person:
+    def role(self):
+        pass
+
+class Student:
+    def role(self):
+        print("I study")
+
+class Teacher:
+    def role(self):
+        print("I Teach")
+
+s = Student()
+t = Teacher()
+
+for x in (s,t):
+    x.role()
