@@ -81,6 +81,15 @@ for x in (c,s,p):
     x.move()
 ```
 
+## Polymorphism in Operators
+same operator (+) can perform different tasks depending on operand types. This is known as operator overloading. This flexibility is a key aspect of polymorphism.
+
+Example:
+```
+print(5 + 10)  # Integer addition
+print("Hello " + "World!")  # String concatenation
+print([1, 2] + [3, 4])  # List concatenation
+```
 # When Polymorphism Appears
 This classification is based on when the polymorphic behavior is determines/resolved.
 
