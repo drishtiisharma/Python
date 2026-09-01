@@ -490,20 +490,33 @@
 #     x.sound()
 
 
-class Person:
-    def role(self):
-        pass
+# class Person:
+#     def role(self):
+#         pass
 
-class Student:
-    def role(self):
-        print("I study")
+# class Student:
+#     def role(self):
+#         print("I study")
 
-class Teacher:
-    def role(self):
-        print("I Teach")
+# class Teacher:
+#     def role(self):
+#         print("I Teach")
 
-s = Student()
-t = Teacher()
+# s = Student()
+# t = Teacher()
 
-for x in (s,t):
-    x.role()
+# for x in (s,t):
+#     x.role()
+
+# compile time polymorphism
+class Calculator:
+    def prod(self,a=4,b=5,*args):
+        res = a*b 
+        for x in args:
+            res *= x
+        return res
+
+c = Calculator()
+print(c.prod())
+print(c.prod(10))
+print(c.prod(20,30,5))
