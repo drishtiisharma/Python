@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Alice",
+        "age": 20,
+        "branch": "CSE"
+    },
+    {
+        "name": "Bob",
+        "age": 21,
+        "branch": "AIML"
+    }
+]

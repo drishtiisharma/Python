@@ -1,0 +1,4 @@
+name age branch
+Alice 20 CSE
+Bob 21 AIML
+Charlie 20 IT

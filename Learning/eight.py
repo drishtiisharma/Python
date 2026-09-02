@@ -62,5 +62,72 @@
 #     print("file does not exist!")
 
 ## deleting a folder
-import os
-os.rmdir("foldername")
+# import os
+# os.rmdir("foldername")
+
+# ------------------------------------- #
+# # CSV -> JSON
+# import csv
+# import json
+
+# with open(r'files\file.csv', mode='r') as f:
+#     reader = csv.reader(f)
+#     data = list(reader)
+
+# with open(r'files\csv_file.json', mode = 'w') as f:
+#     json.dump(data,f,indent=4)
+
+# # CSV -> TXT
+
+# import csv
+# with open(r'files\file.csv', mode = 'r') as f:
+#     reader = csv.reader(f)
+
+#     with open(r'files\csv_file.txt', mode = 'w') as f:
+#         for x in reader:
+#             f.write(' '.join(x)+'\n')
+
+# ------------------------------------- #
+
+# # JSON -> CSV
+
+# import csv
+# import json
+
+# with open(r'files\file.json', "r") as f:
+#     data = json.load(f)
+
+# with open(r'files\json_file.csv', "w", newline="") as f:
+#     writer = csv.DictWriter(f, fieldnames=data[0].keys())
+
+#     writer.writeheader()
+#     writer.writerows(data)
+
+# # JSON -> TXT
+# import json
+# with open(r'files\file.json', mode = 'r') as f:
+#     reader = json.load(f)
+
+#     with open(r'files\json_file.txt', mode = 'w') as f:
+#         for x in reader:
+#             f.write(str(x)+'\n')
+
+# ------------------------------------- #
+
+# # TXT -> CSV
+# import csv
+
+# with open('files\file.txt', mode ='r') as f:
+#     with open('files\txt_file.csv', mode = 'w') as f1:
+#         writer = csv.writer(f1)
+
+#         for x in f:
+#             writer.writerows(line.strip().split(","))
+
+# TXT -> JSON
+import json
+
+with open(r'files\file.txt', mode='r') as f:
+    data = f.read()
+    with open(r'files\txt_file.json', mode = 'w') as f1:
+        json.dump(data,f1,indent=4)
