@@ -87,7 +87,7 @@ with open('files\file.txt', mode ='r') as f:
         writer = csv.writer(f1)
 
         for x in f:
-            writer.writerows(line.strip().split(","))
+            writer.writerows(x.strip().split(","))
 
 # TXT -> JSON
 import json
