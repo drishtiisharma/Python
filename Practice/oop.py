@@ -103,13 +103,33 @@
 # c.sound()
 
 # super
-class Animal:
-    def sound(self):
-        print("animal makes sound")
-class Dog(Animal):
-    def soundd(self):
-        super().sound()
-        print("woofs")
+# class Animal:
+#     def sound(self):
+#         print("animal makes sound")
+# class Dog(Animal):
+#     def soundd(self):
+#         super().sound()
+#         print("woofs")
 
-d = Dog()
-d.soundd()
+# d = Dog()
+# d.soundd()
+
+## inheritance
+# class Vehicle:
+#     def info(self,brand, color):
+#         print('Parent class: Vehicle')
+# class Car(Vehicle):
+#     def info(self,brand,color):
+#         super().info(brand,color)
+#         print("car details:")
+#         print("brand",brand)
+#         print('color',color)
+# class Ship(Vehicle):
+#     def info(self,brand,color):
+#         print("ship details:")
+#         print("brand",brand)
+#         print('color',color)
+# c= Car()
+# c.info('toyota','white')
+# s = Ship()
+# s.info('MCP','green')
