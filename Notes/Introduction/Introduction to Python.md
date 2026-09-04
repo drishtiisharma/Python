@@ -50,19 +50,24 @@ Known for its:
 - [[Object Oriented Programming]]
 - [[File Handling]]
 ## Misc
-Some IDEs – vs code, jupyter ntbk,pycharm,  spyder, google colab, python idle
-Relies on whitespaces for indentation, other languages use curly braces.
-Unpacking - python allows to extract values from list/tuple into variables
 
-“print()” – used to display text or output values
+**IDEs**
+- Some IDEs: VS Code, Jupyter Notebook, PyCharm, Spyder, Google Colab, Python IDLE
 
-Quotes – text to be written inside quotes, can use single (‘) or double(“) quotes both
+**Indentation**
+- Python relies on whitespaces for indentation.
+- Other languages use curly braces `{}`.
 
-By default, print() ends with a new line.
+**Unpacking**
+- Python allows you to extract values from a list/tuple into variables.
 
-If want to print multiple words on same line use: “,end =‘ ’” inside print()
+**print()**
+- `print()` is used to display text or output values.
+- Quotes: Text is written inside quotes. You can use single (`' '`) or double (`" "`) quotes.
+- By default, `print()` ends with a new line.
+- To print multiple words on the same line, use `end=' '` inside `print()`.
 
-Compilation error:
-Happens when computer program cannot translate source code into an executable file because the code breaks the rules or structure of the programming language
+**Compilation Error**
+- Happens when a computer program cannot translate source code into an executable file because the code breaks the rules or structure of the programming language.
 
 

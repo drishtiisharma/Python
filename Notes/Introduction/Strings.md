@@ -1,70 +1,179 @@
 # Strings
 
-Strings
-- Surrounded by single/double quotation marks
-- Arrays of unicode characters
-- Square brackets are used to access elements(characters not words) of the string
-- Length of string – len()
-- “in” keyword to check if character/word present in a string
-- “not in” keyword for the opposite purpose
-- Slicing can be done as: var[start\:stop\:step]
-- Some methods to modify strings: upper(), lower(), strip() -> removes white space,replace(), split()
-- Concatenate: use “+”
-- Can combine str and int using format() method
+A **string** is a sequence of characters used to store text.
 
-[image](file:///C:/Users/freedom/AppData/Local/Temp/msohtmlclip1/01/clip_image009.png)
+- Strings are surrounded by **single (`' '`) or double (`" "`) quotation marks**.
+- Strings are arrays/sequences of **Unicode characters**.
+- Square brackets `[]` are used to access individual characters of a string.
+- `len()` is used to find the length of a string.
+- The `in` keyword checks whether a character or word is present in a string.
+- The `not in` keyword checks whether a character or word is not present in a string.
+- Strings are **immutable**, meaning their individual characters cannot be changed after creation.
+## Creating Strings
 
-- Escape characters are used to insert the characters that are otherwise illegal, reserved, or difficult to type directly into a string literal
+```python
+name = "Python"
+language = 'Python'
+```
 
-[image](file:///C:/Users/freedom/AppData/Local/Temp/msohtmlclip1/01/clip_image010.png)
+## Accessing Characters
 
-- String methods
+Square brackets are used to access individual characters using their **index**.
 
-|                                                                                |                                                                                               |
-| ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
-| **Method**                                                                     | **Description**                                                                               |
-| [capitalize()](https://www.w3schools.com/python/ref_string_capitalize.asp)     | Converts the first character to upper case                                                    |
-| [casefold()](https://www.w3schools.com/python/ref_string_casefold.asp)         | Converts string into lower case                                                               |
-| [center()](https://www.w3schools.com/python/ref_string_center.asp)             | Returns a centered string                                                                     |
-| [count()](https://www.w3schools.com/python/ref_string_count.asp)               | Returns the number of times a specified value occurs in a string                              |
-| [encode()](https://www.w3schools.com/python/ref_string_encode.asp)             | Returns an encoded version of the string                                                      |
-| [endswith()](https://www.w3schools.com/python/ref_string_endswith.asp)         | Returns true if the string ends with the specified value                                      |
-| [expandtabs()](https://www.w3schools.com/python/ref_string_expandtabs.asp)     | Sets the tab size of the string                                                               |
-| [find()](https://www.w3schools.com/python/ref_string_find.asp)                 | Searches the string for a specified value and returns the position of where it was found      |
-| [format()](https://www.w3schools.com/python/ref_string_format.asp)             | Formats specified values in a string                                                          |
-| format\_map()                                                                  | Formats specified values in a string                                                          |
-| [index()](https://www.w3schools.com/python/ref_string_index.asp)               | Searches the string for a specified value and returns the position of where it was found      |
-| [isalnum()](https://www.w3schools.com/python/ref_string_isalnum.asp)           | Returns True if all characters in the string are alphanumeric                                 |
-| [isalpha()](https://www.w3schools.com/python/ref_string_isalpha.asp)           | Returns True if all characters in the string are in the alphabet                              |
-| [isascii()](https://www.w3schools.com/python/ref_string_isascii.asp)           | Returns True if all characters in the string are ascii characters                             |
-| [isdecimal()](https://www.w3schools.com/python/ref_string_isdecimal.asp)       | Returns True if all characters in the string are decimals                                     |
-| [isdigit()](https://www.w3schools.com/python/ref_string_isdigit.asp)           | Returns True if all characters in the string are digits                                       |
-| [isidentifier()](https://www.w3schools.com/python/ref_string_isidentifier.asp) | Returns True if the string is an identifier                                                   |
-| [islower()](https://www.w3schools.com/python/ref_string_islower.asp)           | Returns True if all characters in the string are lower case                                   |
-| [isnumeric()](https://www.w3schools.com/python/ref_string_isnumeric.asp)       | Returns True if all characters in the string are numeric                                      |
-| [isprintable()](https://www.w3schools.com/python/ref_string_isprintable.asp)   | Returns True if all characters in the string are printable                                    |
-| [isspace()](https://www.w3schools.com/python/ref_string_isspace.asp)           | Returns True if all characters in the string are whitespaces                                  |
-| [istitle()](https://www.w3schools.com/python/ref_string_istitle.asp)           | Returns True if the string follows the rules of a title                                       |
-| [isupper()](https://www.w3schools.com/python/ref_string_isupper.asp)           | Returns True if all characters in the string are upper case                                   |
-| [join()](https://www.w3schools.com/python/ref_string_join.asp)                 | Joins the elements of an iterable to the end of the string                                    |
-| [ljust()](https://www.w3schools.com/python/ref_string_ljust.asp)               | Returns a left justified version of the string                                                |
-| [lower()](https://www.w3schools.com/python/ref_string_lower.asp)               | Converts a string into lower case                                                             |
-| [lstrip()](https://www.w3schools.com/python/ref_string_lstrip.asp)             | Returns a left trim version of the string                                                     |
-| [maketrans()](https://www.w3schools.com/python/ref_string_maketrans.asp)       | Returns a translation table to be used in translations                                        |
-| [partition()](https://www.w3schools.com/python/ref_string_partition.asp)       | Returns a tuple where the string is parted into three parts                                   |
-| [replace()](https://www.w3schools.com/python/ref_string_replace.asp)           | Returns a string where a specified value is replaced with a specified value                   |
-| [rfind()](https://www.w3schools.com/python/ref_string_rfind.asp)               | Searches the string for a specified value and returns the last position of where it was found |
-| [rindex()](https://www.w3schools.com/python/ref_string_rindex.asp)             | Searches the string for a specified value and returns the last position of where it was found |
-| [rjust()](https://www.w3schools.com/python/ref_string_rjust.asp)               | Returns a right justified version of the string                                               |
-| [rpartition()](https://www.w3schools.com/python/ref_string_rpartition.asp)     | Returns a tuple where the string is parted into three parts                                   |
-| [rsplit()](https://www.w3schools.com/python/ref_string_rsplit.asp)             | Splits the string at the specified separator, and returns a list                              |
-| [rstrip()](https://www.w3schools.com/python/ref_string_rstrip.asp)             | Returns a right trim version of the string                                                    |
-| [split()](https://www.w3schools.com/python/ref_string_split.asp)               | Splits the string at the specified separator, and returns a list                              |
-| [splitlines()](https://www.w3schools.com/python/ref_string_splitlines.asp)     | Splits the string at line breaks and returns a list                                           |
-| [startswith()](https://www.w3schools.com/python/ref_string_startswith.asp)     | Returns true if the string starts with the specified value                                    |
-| [strip()](https://www.w3schools.com/python/ref_string_strip.asp)               | Returns a trimmed version of the string                                                       |
-| [swapcase()](https://www.w3schools.com/python/ref_string_swapcase.asp)         | Swaps cases, lower case becomes upper case and vice versa                                     |
-| [title()](https://www.w3schools.com/python/ref_string_title.asp)               | Converts the first character of each word to upper case                                       |
-| [translate()](https://www.w3schools.com/python/ref_string_translate.asp)       | Returns a translated string                                                                   |
-| [upper()](https://www.w3schools.com/python/ref_string_upper.asp)               | Converts a string into upper case                                                             |
-| [zfill()](https://www.w3schools.com/python/ref_string_zfill.asp)               | Fills the string with a specified number of 0 values at the beginning                         |
+```python
+text = "Python"
+
+print(text[0])   # P
+print(text[1])   # y
+print(text[-1])  # n
+```
+
+|Index|`0`|`1`|`2`|`3`|`4`|`5`|
+|--:|---|---|---|---|---|---|
+|Character|`P`|`y`|`t`|`h`|`o`|`n`|
+
+## Length of a String
+
+The `len()` function returns the number of characters in a string.
+
+```python
+text = "Python"
+
+print(len(text))  # 6
+```
+
+## Checking if a Value Exists
+
+The `in` and `not in` keywords are used to check whether a character or word exists in a string.
+
+```python
+text = "Python programming"
+
+print("Python" in text)       # True
+print("Java" in text)         # False
+print("Java" not in text)     # True
+```
+
+## String Slicing
+
+Slicing is used to extract a portion of a string.
+
+### Syntax
+
+```text
+string[start:stop:step]
+```
+
+|Parameter|Description|
+|---|---|
+|`start`|Starting index|
+|`stop`|Ending index (not included)|
+|`step`|Number of positions to move|
+
+Example:
+
+```python
+text = "Python"
+
+print(text[0:3])   # Pyt
+print(text[2:5])   # tho
+print(text[:4])    # Pyth
+print(text[2:])    # thon
+print(text[::2])   # Pto
+```
+
+## String Concatenation
+
+The `+` operator is used to join two or more strings.
+
+```python
+first = "Hello"
+second = "World"
+
+result = first + " " + second
+
+print(result)
+# Hello World
+```
+
+## Combining String and Numbers
+
+A string and an integer cannot be directly concatenated using `+`.
+
+The `format()` method can be used to combine different data types.
+
+```python
+age = 20
+
+text = "I am {} years old".format(age)
+
+print(text)
+# I am 20 years old
+```
+
+## Escape Characters
+
+Escape characters are used to insert characters that are otherwise difficult or impossible to type directly inside a string.
+
+|Escape Character|Meaning|Example|
+|---|---|---|
+|`\'`|Single quote|`'It\'s Python'`|
+|`\"`|Double quote|`"He said \"Hello\""`|
+|`\\`|Backslash|`"C:\\Python"`|
+|`\n`|New line|`"Hello\nWorld"`|
+|`\t`|Tab|`"Hello\tWorld"`|
+
+Example:
+
+```python
+text = "Hello\nWorld"
+
+print(text)
+```
+
+Output:
+
+```text
+Hello
+World
+```
+
+# Main String Methods
+
+|Method|Description|Example|
+|---|---|---|
+|`capitalize()`|Converts the first character to uppercase|`"python".capitalize()` → `"Python"`|
+|`lower()`|Converts the string to lowercase|`"PYTHON".lower()` → `"python"`|
+|`upper()`|Converts the string to uppercase|`"python".upper()` → `"PYTHON"`|
+|`title()`|Converts the first character of each word to uppercase|`"hello world".title()` → `"Hello World"`|
+|`strip()`|Removes leading and trailing whitespace|`" Python ".strip()` → `"Python"`|
+|`replace()`|Replaces a specified value with another value|`"Hello".replace("H", "J")` → `"Jello"`|
+|`split()`|Splits a string into a list|`"a,b,c".split(",")` → `['a', 'b', 'c']`|
+|`join()`|Joins elements of an iterable into a string|`"-".join(["a","b"])` → `"a-b"`|
+|`find()`|Returns the position of the first occurrence|`"Python".find("t")` → `2`|
+|`count()`|Returns the number of occurrences|`"banana".count("a")` → `3`|
+|`startswith()`|Checks whether a string starts with a value|`"Python".startswith("Py")` → `True`|
+|`endswith()`|Checks whether a string ends with a value|`"Python".endswith("on")` → `True`|
+|`isdigit()`|Checks whether all characters are digits|`"123".isdigit()` → `True`|
+|`isalpha()`|Checks whether all characters are alphabetic|`"Python".isalpha()` → `True`|
+|`isalnum()`|Checks whether all characters are alphanumeric|`"Python123".isalnum()` → `True`|
+|`isspace()`|Checks whether all characters are whitespace|`" ".isspace()` → `True`|
+
+## Quick Summary
+
+|Operation|Syntax / Method|Purpose|
+|---|---|---|
+|Create string|`"Python"`|Store text|
+|Access character|`text[0]`|Access a character|
+|Length|`len(text)`|Find number of characters|
+|Check presence|`"Py" in text`|Check if value exists|
+|Check absence|`"Java" not in text`|Check if value doesn't exist|
+|Slicing|`text[start:stop:step]`|Extract part of a string|
+|Concatenate|`text1 + text2`|Join strings|
+|Uppercase|`text.upper()`|Convert to uppercase|
+|Lowercase|`text.lower()`|Convert to lowercase|
+|Remove whitespace|`text.strip()`|Remove leading/trailing spaces|
+|Replace|`text.replace()`|Replace text|
+|Split|`text.split()`|Convert string into a list|
+|Join|`separator.join()`|Join values into a string|
+|Format|`text.format()`|Insert values into a string|
