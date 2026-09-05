@@ -37,10 +37,7 @@ Known for its:
 - Simpler syntax
 - Quick prototyping – runs on an interpreter system, code can be executed as soon as its written
 ## List of Topics
-- [[Comments]]
-- [[Variables]]
-- [[Statements]]
-- [[Keywords]]
+- [[Short Topics]]
 - [[Data types]]
 - [[Strings]]
 - [[Collections]]

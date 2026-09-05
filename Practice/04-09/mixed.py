@@ -48,10 +48,12 @@
 # print(c.res())
 
 # Take a filename from the user, open the file, and count the total number of lines. Handle the case where the file does not exist.
-import re
 name = input("enter file name: ")
-x = re.search(r'\bname\b',r'\mixed')
-if x:
-    print('exists')
-else:
-    print('doesnt exist')
+try:
+    with open(name,'r') as f:
+        lines = f.readlines()
+        print("file exists!")
+        print('total lines:',len(lines))
+        print(lines)
+except FileNotFoundError:
+    print("file doesnt exist")

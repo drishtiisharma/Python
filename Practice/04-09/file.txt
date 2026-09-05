@@ -1,0 +1,2 @@
+Take a filename from the user, open the file, and count the total number of lines. 
+Handle the case where the file does not exist.

@@ -1,6 +1,6 @@
 ## Introduction
 - Python is an object oriented programming language
-- Object oriented means building computer programs using small, independent packages called objects that act like real-world things.'
+- Object oriented means building computer programs using small, independent packages called objects that act like real-world things.
 
 ## Difference between OOP and Procedural Programming
 
