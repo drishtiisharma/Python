@@ -19,4 +19,4 @@ Compare:
 
 That has **magnitude + direction**, so it is represented by a vector.
 
-![[Scalars&Vectors.excalidraw]]
+![Scalars and Vectors](assets/Scalars&Vectors.png)
