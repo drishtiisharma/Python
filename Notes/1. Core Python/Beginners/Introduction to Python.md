@@ -44,7 +44,6 @@ Known for its:
 - [[Operators]]
 - [[Conditionals]]
 - [[Loops]]
-- [[Object Oriented Programming]]
 - [[File Handling]]
 ## Misc
 
