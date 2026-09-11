@@ -11,7 +11,7 @@ An **inner product** is a mathematical operation that takes two vectors and retu
 - If the result is positive, they point in a similar direction.
 - If the result is negative, they point in opposite directions.
 
-## The Rules of Inner Products
+## Axioms of Inner Products
 
 - **Rule 1 (Symmetry):** The order doesn't matter. Multiplying vector $u$ by $v$ gives the same result as multiplying $v$ by $u$.
   - $\langle u, v \rangle = \langle v, u \rangle$
@@ -57,11 +57,11 @@ An **inner product** is a mathematical operation that takes two vectors and retu
 
 ## Why Inner Products Matter
 
-- **Geometry**: They let us define distances and angles in abstract spaces
-- **Optimization**: Used in least squares, machine learning algorithms
-- **Physics**: Work = force · displacement is an inner product
-- **Signal Processing**: Correlation between signals
-- **Quantum Mechanics**: State overlaps use inner products
+- **Geometry**: They let us measure distances and angles in any space.
+- **Optimization**: They help computers find the best solution in machine learning.
+- **Physics**: They calculate work, like how much energy a force uses to move an object.
+- **Signal Processing**: They check how similar two signals (like audio waves) are.
+- **Quantum Mechanics**: This is the most famous use. In quantum physics, particles are treated as vectors. The inner product tells us the **probability** of a particle being in a certain state. It’s the math behind why we can’t know everything about a particle at once.
 
 ## Example
 

@@ -1,0 +1,101 @@
+# Vector Norms
+
+A vector norm, sometimes represented with a double bar as ∥x∥, is a function that assigns a non-negative length or size to a vector x in n-dimensional space. Norms are essential in mathematics and machine learning for measuring vector magnitudes and calculating distances.
+### Properties of Vector Norms
+
+- A vector norm **always produces a positive number** for any vector that is not zero, and it **produces exactly zero only when the vector itself is zero.**
+- When you multiply a vector by a scalar number, the norm of the new vector equals the absolute value of that scalar multiplied by the original norm.
+	**Example**:
+	Here is the step-by-step calculation for the property using the L2 norm:
+	
+	**1. Define the original vector and calculate its norm:**
+	*   Let vector **x** = [3, 4].
+	*   The L2 norm of **x** is calculated as $\sqrt{3^2 + 4^2}$.
+	*   This equals $\sqrt{9 + 16}$.
+	*   This equals $\sqrt{25}$.
+	*   So, $||\mathbf{x}||_2 = 5$.
+	
+	**2. Define the scalar and multiply it with the vector:**
+	*   Let the scalar **k** = -2.
+	*   Multiply **k** by **x** to get a new vector **y**:
+	    *   $-2 \times 3 = -6$
+	    *   $-2 \times 4 = -8$
+	*   So, the new vector **y** = [-6, -8].
+	
+	**3. Calculate the norm of the new vector:**
+	*   The L2 norm of **y** is calculated as $\sqrt{(-6)^2 + (-8)^2}$.
+	*   This equals $\sqrt{36 + 64}$.
+	*   This equals $\sqrt{100}$.
+	*   So, $||\mathbf{y}||_2 = 10$.
+	
+	**4. Verify the property using the absolute value of the scalar:**
+	*   The absolute value of the scalar **k** is $|-2| = 2$.
+	*   Multiply this absolute value by the original norm: $2 \times 5 = 10$.
+	
+	**Conclusion:**
+	The norm of the new vector (10) is exactly equal to the absolute value of the scalar (2) multiplied by the original norm (5).
+
+
+- The norm of the sum of two vectors is always less than or equal to the sum of their individual norms, which ensures that taking a direct path never results in a larger magnitude than taking separate steps.
+	**Example**:
+	Here is the step-by-step calculation for the **Triangle Inequality** property using the L2 norm.
+	
+	**1. Define two vectors:**
+	*   Let vector **a** = [3, 4].
+	*   Let vector **b** = [1, 2].
+	
+	**2. Calculate the norm of the first vector (||a||):**
+	*   $||\mathbf{a}||_2 = \sqrt{3^2 + 4^2}$
+	*   $||\mathbf{a}||_2 = \sqrt{9 + 16}$
+	*   $||\mathbf{a}||_2 = \sqrt{25} = 5$
+	
+	**3. Calculate the norm of the second vector (||b||):**
+	*   $||\mathbf{b}||_2 = \sqrt{1^2 + 2^2}$
+	*   $||\mathbf{b}||_2 = \sqrt{1 + 4}$
+	*   $||\mathbf{b}||_2 = \sqrt{5} \approx 2.24$
+	
+	**4. Calculate the sum of their individual norms:**
+	*   $||\mathbf{a}|| + ||\mathbf{b}|| = 5 + 2.24 = 7.24$
+	
+	**5. Add the two vectors together to get a new vector (a + b):**
+	*   $\mathbf{a} + \mathbf{b} = [3+1, 4+2] = [4, 6]$
+	
+	**6. Calculate the norm of the sum (||a + b||):**
+	*   $||\mathbf{a} + \mathbf{b}||_2 = \sqrt{4^2 + 6^2}$
+	*   $||\mathbf{a} + \mathbf{b}||_2 = \sqrt{16 + 36}$
+	*   $||\mathbf{a} + \mathbf{b}||_2 = \sqrt{52} \approx 7.21$
+	
+	**Conclusion:**
+	*   The norm of the sum ($7.21$) is less than the sum of the individual norms ($7.24$).
+	*   This proves that $||\mathbf{a} + \mathbf{b}|| \leq ||\mathbf{a}|| + ||\mathbf{b}||$.
+
+### L1 Norm Calculation
+
+*   The formula requires adding the absolute value of each component: $|3| + |-4| + |2|$.
+*   The absolute value of 3 is 3.
+*   The absolute value of -4 is 4.
+*   The absolute value of 2 is 2.
+*   Adding these values together results in $3 + 4 + 2 = 9$.
+*   Therefore, the L1 norm is **9**.
+
+### L2 Norm Calculation
+
+*   The formula requires squaring each component first: $3^2$, $(-4)^2$, and $2^2$.
+*   $3^2$ equals 9.
+*   $(-4)^2$ equals 16.
+*   $2^2$ equals 4.
+*   Next, add these squared values together: $9 + 16 + 4 = 29$.
+*   Finally, take the square root of the sum: $\sqrt{29}$.
+*   Therefore, the L2 norm is approximately **5.39**.
+
+### L∞ Norm Calculation
+
+*   The formula requires finding the absolute value of every component first: $|3|$, $|-4|$, and $|2|$.
+*   These absolute values are 3, 4, and 2.
+*   Compare these values to find the largest one.
+*   The number 4 is larger than both 3 and 2.
+*   Therefore, the L∞ norm is **4**.
+
+
+
+
