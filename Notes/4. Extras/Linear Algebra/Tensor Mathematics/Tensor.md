@@ -125,7 +125,23 @@ The tensor product $T = u \otimes v$ creates a rank-2 tensor (matrix). The compo
 
 So,
 
-$u \otimes v = \begin{bmatrix} 1 \\ 2 \end{bmatrix} \otimes \begin{bmatrix} 3 \\ 4 \end{bmatrix} = \begin{bmatrix} 3 \\ 4 \\ 6 \\ 8 \end{bmatrix}$
+$$
+u \otimes v =
+\begin{bmatrix}
+1 \\
+2
+\end{bmatrix}
+\otimes
+\begin{bmatrix}
+3 \\
+4
+\end{bmatrix}
+=
+\begin{bmatrix}
+3 & 4 \\
+6 & 8
+\end{bmatrix}
+$$
 
 
 **Result:** Two rank-1 tensors produced one rank-2 tensor.
@@ -170,6 +186,9 @@ A \otimes B = \begin{bmatrix}
 \end{bmatrix}
 $$
 **Result:** Two rank-2 tensors produced one rank-4 tensor.
+
+> [!NOTE]
+> When we take the tensor product of two matrices, the result is a complex 4D object. Since we can't easily draw or calculate with 4D objects on paper, we use the **Kronecker Product** to arrange that 4D object into a big, simple **2D Matrix**, the above example is a **Kronecker Product representation**.
 
 ### 3. Contraction
 
@@ -340,3 +359,15 @@ v^i =
 7
 \end{bmatrix}
 $$
+
+
+## Difference between Tensor & Array
+
+| Tensor                                                                                                        | Matrix                                                                                            |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| A multi-dimensional array with any number of dimensions (rank ≥ 0)                                            | A two-dimensional array (rank = 2)                                                                |
+| Can represent scalars (0D), vectors (1D), matrices (2D), and higher-dimensional data                          | Specifically represents a 2D grid of numbers with rows and columns                                |
+| Generalization of matrices to n-dimensions                                                                    | A special case of a tensor (2nd-order tensor)                                                     |
+| Used extensively in deep learning frameworks (e.g., TensorFlow, PyTorch) for handling complex data structures | Commonly used in linear algebra for operations like transformations, solving systems of equations |
+| Operations include element-wise, broadcasting, and dimension-specific manipulations across multiple axes      | Operations include matrix multiplication, determinant, inverse, eigenvalue decomposition          |
+
