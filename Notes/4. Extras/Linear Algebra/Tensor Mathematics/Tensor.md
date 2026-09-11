@@ -88,7 +88,28 @@ $$A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}, \quad B = \begin{bmatrix} 5 
     $$D_{ij} = 3 \cdot A_{ij} \implies D = \begin{bmatrix} 3 & 6 \\ 9 & 12 \end{bmatrix}$$
 
 ### 2. Tensor Product ($\otimes$)
-The tensor product combines two tensors into a new, higher-rank tensor. The new rank is the sum of the original ranks. You multiply every component of the first tensor by every component of the second tensor.
+
+The tensor product combines two tensors into a new, higher-rank tensor. The new rank is the sum of the original ranks. We multiply every component of the first tensor by every component of the second tensor.
+
+> **Tensor rank = the number of axes/indices needed to describe the tensor.**
+
+We can loosely think of it as the number of **directions/dimensions of organization**.
+
+For example:
+
+- **Scalar** → rank 0 → just one value
+    
+- **Vector** → rank 1 → one axis
+    
+- **Matrix** → rank 2 → two axes (rows, columns)
+    
+- **3D tensor** → rank 3 → three axes
+    
+- **4D tensor** → rank 4 → four axes
+
+$$rank(A⊗B)=rank(A)+rank(B)​$$
+
+where here **rank means tensor order/number of axes**, not matrix rank.
 
 **Examples:**
 ###### Rank - 1 Tensor
@@ -102,7 +123,10 @@ The tensor product $T = u \otimes v$ creates a rank-2 tensor (matrix). The compo
 *   $T_{21} = u_2 \times v_1 = 2 \times 3 = 6$
 *   $T_{22} = u_2 \times v_2 = 2 \times 4 = 8$
 
-$$T = \begin{bmatrix} 3 & 4 \\ 6 & 8 \end{bmatrix}$$
+So,
+
+$u \otimes v = \begin{bmatrix} 1 \\ 2 \end{bmatrix} \otimes \begin{bmatrix} 3 \\ 4 \end{bmatrix} = \begin{bmatrix} 3 \\ 4 \\ 6 \\ 8 \end{bmatrix}$
+
 
 **Result:** Two rank-1 tensors produced one rank-2 tensor.
 
@@ -148,12 +172,13 @@ $$
 **Result:** Two rank-2 tensors produced one rank-4 tensor.
 
 ### 3. Contraction
-Contraction reduces the rank of a tensor by 2. It works by setting one upper index equal to one lower index and summing over all possible values of that index. This is equivalent to taking the trace for matrices.
+
+Contraction **reduces the rank of a tensor by 2.** It works by setting one upper index equal to one lower index and summing over all possible values of that index. This is equivalent to taking the trace for matrices.
 
 **Example:**
 
-###### Rank - 2 Tensor
-Take a rank-2 mixed tensor $M^i_j$ (one upper, one lower index):
+###### Rank - 2 Tensor (2x2 Matrix)
+Take a rank-2 mixed tensor $M^i_j$ (one upper, one lower index), represented as a 2×2 matrix:
 $$M = \begin{bmatrix} 2 & 5 \\ 1 & 3 \end{bmatrix} \quad \text{(where rows are } i \text{ and columns are } j)$$
 
 To contract $M$, we set $i = j$ and sum:
@@ -162,14 +187,7 @@ $$= 2 + 3 = 5$$
 
 **Result:** A rank-2 tensor became a rank-0 tensor (scalar).
 
-**Contraction with Tensor Product:**
-If you take the tensor product of two vectors $u \otimes v$ from the previous example, we get $\begin{bmatrix} 3 & 4 \\ 6 & 8 \end{bmatrix}$. 
-If you then contract this result:
-$$3 + 8 = 11$$
-This value (11) is actually the dot product of the original vectors ($1\times3 + 2\times4 = 11$). Contraction after a tensor product effectively "closes" the open indices.
-
-
-###### Rank - 3 Tensor:
+###### Rank - 2 Tensor (3x3 Matrix):
 
 
 Take a rank-2 mixed tensor $T^i_j$ (1 upper, 1 lower index), represented as a 3×3 matrix:
@@ -204,37 +222,121 @@ This operation changes an index from upper (contravariant) to lower (covariant),
 *   **Raising:** Multiply the tensor by the inverse metric $g^{ij}$ and sum over the shared index.
 
 **Example Calculation:**
-
 ###### Lowering Indice
-Let the metric tensor be the identity matrix (flat Euclidean space):
-$$g_{ij} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}$$
+
+Let the metric tensor be non-identity:
+
+$$
+g_{ij} =
+\begin{bmatrix}
+2 & 0 \\
+0 & 3
+\end{bmatrix}
+$$
 
 Let a contravariant vector (upper index) be:
-$$v^j = \begin{bmatrix} 5 \\ 7 \end{bmatrix}$$
 
-To lower the index and find $v_i$, we calculate $v_i = \sum_j g_{ij} v^j$:
+$$
+v^j =
+\begin{bmatrix}
+5 \\
+7
+\end{bmatrix}
+$$
 
-*   For $i=1$: $v_1 = g_{11}v^1 + g_{12}v^2 = (1)(5) + (0)(7) = 5$
-*   For $i=2$: $v_2 = g_{21}v^1 + g_{22}v^2 = (0)(5) + (1)(7) = 7$
+To lower the index and find $v_i$, we calculate:
 
-$$v_i = \begin{bmatrix} 5 \\ 7 \end{bmatrix}$$
+$$
+v_i = \sum_j g_{ij}v^j
+$$
+
+- For $i=1$:
+
+$$
+v_1 = g_{11}v^1 + g_{12}v^2
+= (2)(5) + (0)(7)
+= 10
+$$
+
+- For $i=2$:
+
+$$
+v_2 = g_{21}v^1 + g_{22}v^2
+= (0)(5) + (3)(7)
+= 21
+$$
+
+Therefore:
+
+$$
+v_i =
+\begin{bmatrix}
+10 \\
+21
+\end{bmatrix}
+$$
+
 
 ###### Raising Indice
 
-Let the metric tensor be non-identity:
-$$g_{ij} = \begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}$$
+Let the metric tensor be:
+
+$$
+g_{ij} =
+\begin{bmatrix}
+2 & 0 \\
+0 & 3
+\end{bmatrix}
+$$
 
 First, find the inverse metric $g^{ij}$:
-$$g^{ij} = \begin{bmatrix} 1/2 & 0 \\ 0 & 1/3 \end{bmatrix}$$
+
+$$
+g^{ij} =
+\begin{bmatrix}
+\frac{1}{2} & 0 \\
+0 & \frac{1}{3}
+\end{bmatrix}
+$$
 
 Let a covariant vector (lower index) be:
-$$v_j = \begin{bmatrix} 10 \\ 21 \end{bmatrix}$$
 
-To raise the index and find $v^i$, we calculate $v^i = \sum_j g^{ij} v_j$:
+$$
+v_j =
+\begin{bmatrix}
+10 \\
+21
+\end{bmatrix}
+$$
 
--   For $i=1$: $v^1 = g^{11}v_1 + g^{12}v_2 = (1/2)(10) + (0)(21) = 5$
--   For $i=2$: $v^2 = g^{21}v_1 + g^{22}v_2 = (0)(10) + (1/3)(21) = 7$
+To raise the index and find $v^i$, we calculate:
 
-$$v^i = \begin{bmatrix} 5 \\ 7 \end{bmatrix}$$
+$$
+v^i = \sum_j g^{ij}v_j
+$$
 
+- For $i=1$:
 
+$$
+v^1 = g^{11}v_1 + g^{12}v_2
+= \left(\frac{1}{2}\right)(10) + (0)(21)
+= 5
+$$
+
+- For $i=2$:
+
+$$
+v^2 = g^{21}v_1 + g^{22}v_2
+= (0)(10) + \left(\frac{1}{3}\right)(21)
+= 7
+$$
+
+Therefore:
+
+$$
+v^i =
+\begin{bmatrix}
+5 \\
+7
+\end{bmatrix}
+$$
