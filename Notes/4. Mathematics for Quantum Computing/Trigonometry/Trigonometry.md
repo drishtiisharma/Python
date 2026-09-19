@@ -26,9 +26,9 @@ print(np.cos(angle))
 print(np.tan(angle))
 
 # takes values and returns in radians
-print(np.arcsin(1))
-print(np.arccos(0))
-print(np.arctan(1))
+print(np.arcsin(1)) # cosec
+print(np.arccos(0)) # sec
+print(np.arctan(1)) # cot
 
 # degrees to radians
 radians = np.radians(90) # can also use deg2rad

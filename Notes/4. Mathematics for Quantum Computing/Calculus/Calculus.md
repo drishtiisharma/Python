@@ -11,3 +11,12 @@ Calculus has two main parts:
 
 1. Calculus defines quantum dynamics via the Schrödinger equation (derivatives) and ensures valid probabilities through wavefunction normalization (integrals).
 2. It enables computation of physical observables like momentum and energy, which are mathematically represented as differential operators acting on state vectors.
+
+|Calculus concept|SciPy tool|
+|---|---|
+|Numerical differentiation|`scipy.differentiate`|
+|Definite integration|`scipy.integrate.quad()`|
+|Double integration|`scipy.integrate.dblquad()`|
+|Triple integration|`scipy.integrate.tplquad()`|
+|Differential equations|`scipy.integrate.solve_ivp()`|
+

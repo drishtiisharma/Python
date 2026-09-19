@@ -88,13 +88,10 @@ Expected value basically means:
 
 Every number has probability:
 
-$P(X=x)=16P(X=x)=\frac{1}{6}$
+$P(X=x)=\frac{1}{6}$
 
 
 Therefore:
-$$
-E[X]=1(16)+2(16)+3(16)+4(16)+5(16)+6(16)
-$$
 $$
 E[X] = 1\left(\frac16\right)+ 2\left(\frac16\right)+ 3\left(\frac16\right)+ 4\left(\frac16\right)+ 5\left(\frac16\right)+ 6\left(\frac16\right)
 $$
@@ -113,7 +110,7 @@ Expected value tells us the **center/average**.
 Variance tells us:
 > **How spread out the values are around the average.**
 
-$$Var(X)=E[(X−E[X])2]$$
+$$Var(X)=E[(X−E[X])^2]$$
 
 Another useful form is:
 
@@ -139,7 +136,7 @@ Measures the **spread/uncertainty of quantum measurement results** around their 
 
 A **probability distribution** tells us:
 
-> **What outcomes are possible and how likely each one is.**
+>**What outcomes are possible and how likely each one is.**
 
 For example, a fair die:
 
@@ -185,17 +182,14 @@ Probability of heads:
 p=0.5
 
 Probability of getting exactly `k` successes:
-$$P(X=k)=(nk)pk(1−p)n−k$$
 $$P(X=k)= \binom{n}{k}p^k(1-p)^{n-k}$$
 
 For exactly 7 heads in 10 flips:
-
-$$P(X=7)=(107)(0.5)7(0.5)3$$
 $$P(X=7)= \binom{10}{7}(0.5)^7(0.5)^3$$
 
 Since:
 
-$$(0.5)7(0.5)3=(0.5)10(0.5)^7(0.5)^3=(0.5)^{10}$$
+$$(0.5)^7(0.5)^3=(0.5)^{10}$$
 
 we get:
 $$P(X=7)= 120(0.5)^{10} $$$$P(X=7)≈0.117$$
