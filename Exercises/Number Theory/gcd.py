@@ -1,0 +1,11 @@
+import math
+
+a,b = 24,28
+print(f"greatest common divisor of {a} and {b} is:",math.gcd(a,b))
+
+# co prime numbers
+x,y = 6,7
+if math.gcd(x,y) == 1:
+    print(f"{x} and {y} are coprimes")
+else:
+    print(f"{x} and {y} are not coprimes")

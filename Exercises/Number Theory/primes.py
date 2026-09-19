@@ -1,0 +1,13 @@
+import sympy as sp 
+n = 17
+
+if sp.isprime(n):
+    print(f"{n} is prime")
+else:
+    print(f"{n} is not prime")
+
+# finding prime numbers in a range
+print("primes in range 1 to 50:",list(sp.primerange(1,50)))
+
+# generating random prime number
+print("random prime no:",sp.randprime(10,100))
