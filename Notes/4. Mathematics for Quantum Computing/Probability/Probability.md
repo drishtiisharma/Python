@@ -216,8 +216,6 @@ It is described by:
 - Standard deviation → $\sigma$
 
 Its PDF is:
-$$
-f(x)=1σ2πe−(x−μ)22σ2$$
 $$f(x)= \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
 
 $\mu$ = center
