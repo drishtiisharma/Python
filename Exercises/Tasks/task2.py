@@ -2,15 +2,16 @@ import numpy as np
 
 # Create |0⟩
 zero = np.array(([1],[0]))
+print()
 print("|0>:")
 print(zero)
-print("\n")
+print()
 
 # Create Hadamard Matrix H
 H = (1/np.sqrt(2))* np.array([[1,1],[1,-1]])
 print("Hadamard Matrix:")
 print(H)
-print("\n")
+print()
 
 # Verify H is Unitary
 H_dagger = H.conj().T
@@ -20,13 +21,13 @@ if is_unitary == True:
     print("H is a unitary matrix")
 else:
     print("H is not an unitary matrix")
-print("\n")
+print()
 
 # Calculate |ψ⟩ = H|0⟩
 psi = H @ zero
 print("|ψ⟩ =")
 print(psi)
-print("\n")
+print()
 
 
 # Calculate P(0), P(1)
@@ -36,7 +37,7 @@ p1 = abs(psi[1,0]) ** 2
 print("P(0): ",p0)
 print("P(1): ",p1)
 
-print("\n")
+print()
 
 # Run 1000 shots
 shots = 1000
@@ -45,7 +46,7 @@ measurements = np.random.choice(
     size = shots,
     p = [p0,p1]
 )
-print("\n")
+print()
 
 # Count 0 and 1
 count0 = np.sum(measurements == 0)
@@ -57,7 +58,7 @@ if count0 +  count1 == 1000:
     print("1000 shots completed")
 else:
     print("1000 shots NOT completed")
-print("\n")
+print()
 
 # Calculate Experimental Probability
 exp0 = count0 / shots
@@ -65,15 +66,14 @@ exp1 = count1 / shots
 
 print("Experimental P(0): ", exp0)
 print("Experimental P(1): ", exp1)
-print("\n")
+print()
 
 # Calculate Mean
 mean = np.mean(measurements)
 print("Experimental Mean:",mean)
-print("\n")
-
+print()
 
 # Calculate Variance
 variance = np.var(measurements)
 print("Experimental Variance: ",variance)
-print("\n")
+print()
