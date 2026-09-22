@@ -32,7 +32,6 @@ df['margin'] = [
     85,78,95,45,22
 ]
 
-
 # charts
 
 fig, (c1,c2) = plt.subplots(1,2, figsize=(12,6))
@@ -81,5 +80,6 @@ c2.set_ylabel("Total Votes")
 c2.set_xlabel("Candidates")
 
 fig.legend()
-
+plt.suptitle("Election Results")
+plt.savefig("election_results.png")
 plt.show()
