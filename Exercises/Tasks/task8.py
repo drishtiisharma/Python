@@ -36,16 +36,16 @@ cpu2[120] = 97
 memory3[180] = 96
 
 # 3*1 grid
-fig, (c1, c2, c3) = plt.subplots(3,1,figsize=(12,10))
+fig, (c1, c2, c3) = plt.subplots(3,1,figsize=(12,12))
 
 # for cpu
 c1.plot(time, cpu1, label="Server 1")
 c1.plot(time, cpu2, label="Server 2")
 c1.plot(time, cpu3, label="Server 3")
 
-c1.axhline(80, linestyle='--', label="Warning 80%")
-c1.axhline(95, linestyle='--', label="Critical 95%")
-c1.fill_between(time, 95, 100, alpha=0.2)
+c1.axhline(80, linestyle='--', label="Warning 80%",alpha = 0.6,color ='red')
+c1.axhline(95, linestyle='--', label="Critical 95%", color='red')
+c1.fill_between(time, 95, 100, alpha=0.4, color = 'red')
 
 for i in range(288):
     if cpu1[i] >= 95:
@@ -65,9 +65,9 @@ c2.plot(time, memory1, label="Server 1")
 c2.plot(time, memory2, label="Server 2")
 c2.plot(time, memory3, label="Server 3")
 
-c2.axhline(80, linestyle='--', label="Warning 80%")
-c2.axhline(95, linestyle='--', label="Critical 95%")
-c2.fill_between(time, 95, 100, alpha=0.2)
+c2.axhline(80, linestyle='--', label="Warning 80%",alpha = 0.6,color ='red')
+c2.axhline(95, linestyle='--', label="Critical 95%",color='red')
+c2.fill_between(time, 95, 100, alpha=0.4, color = 'red')
 
 for i in range(288):
     if memory1[i] >= 95:
