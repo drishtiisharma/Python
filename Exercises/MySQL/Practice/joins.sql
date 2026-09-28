@@ -63,6 +63,36 @@ from emp
 cross join dept
 where ename = 'Alex';
 
+-- self join
+select * from emp;
+alter table emp add column manager_id int;
+update emp set manager_id = 11 where emp_id = 1;
+update emp set manager_id = 11 where emp_id = 3;
+update emp set manager_id = 14 where emp_id = 2;
+update emp set manager_id = 12 where emp_id in (4,5);
+
+create table manager(
+manager_id int primary key,
+mname varchar(20)
+);
+
+insert into manager values
+(11, 'pranay'),
+(12, 'swati'),
+(14, 'deepak');
+
+select * from emp;
+
+select 
+e1.ename as employee,
+e2.ename as colleague,
+e1.dept_id
+from emp e1
+join emp e2
+on e1.dept_id = e2.dept_id
+and e1.emp_id > e2.emp_id;
+
+
 
 
 
