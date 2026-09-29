@@ -49,7 +49,7 @@ insert into prod(pname, price) values
 ('tables',190.00),
 ('fan',918.00),
 ('cupboard',800.00);
-select * from prod;
+
 create table ord_det(
 oid int primary key auto_increment,
 pid int,
@@ -141,6 +141,10 @@ select name, isnull(rating) as "rating missing" from products;
 use company_db;
 select * from employees;
 
+
+select * from employees
+where department_id = 4;
+
 delimiter //
 create procedure get_dept_4_emp()
 begin
@@ -149,6 +153,17 @@ where department_id = 4;
 end //
 
 delimiter ;
+
+delimiter @
+create procedure get_dept_3_emp()
+begin
+select * from employees
+where department_id = 3;
+end @
+
+delimiter ;
+
+call get_dept_3_emp();
 
 call get_dept_4_emp();
 -- ----------------- --
