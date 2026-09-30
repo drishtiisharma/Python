@@ -49,7 +49,7 @@ select * from fetch_students;
 
 -- updating a view --
 update fetch_students
-set last_name = 'pitt'
+set last_name = 'jolie'
 where first_name = 'brad';
 
 select * from fetch_students;
