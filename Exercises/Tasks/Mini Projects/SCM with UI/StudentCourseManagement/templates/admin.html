@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+
+            <h2>SCM Dashboard</h2>
+
+            <button
+                class="menu-item active"
+                onclick="showSection('dashboard')"
+            >
+                Dashboard
+            </button>
+
+            <p class="sidebar-title">Students</p>
+
+            <button
+                class="menu-item"
+                onclick="showSection('students')"
+            >
+                See All Students
+            </button>
+
+            <button
+                class="menu-item"
+                onclick="showSection('register-student')"
+            >
+                Register Student
+            </button>
+
+            <button
+                class="menu-item"
+                onclick="showSection('change-student')"
+            >
+                Change Student Details
+            </button>
+
+            <button
+                class="menu-item"
+                onclick="showSection('remove-student')"
+            >
+                Remove Student
+            </button>
+
+            
+
+            <p class="sidebar-title">Courses</p>
+
+            <button
+                class="menu-item"
+                onclick="showSection('courses')"
+            >
+                See All Courses
+            </button>
+
+            <button
+                class="menu-item"
+                onclick="showSection('add-course')"
+            >
+                Add Course
+            </button>
+
+            <button
+                class="menu-item"
+                onclick="showSection('enroll-student')"
+            >
+                Enroll Student into Course
+            </button>
+
+            <button
+                class="menu-item"
+                onclick="showSection('remove-enrollment')"
+            >
+                Remove Student from Course
+            </button>
+
+
+
+            <button
+    class="menu-item"
+    onclick="showSection('enrollments')"
+>
+    See Enrolled Students
+</button>
+
+
+
+        </aside>
+
+
+        <!-- Main Content -->
+
+        <main class="main-content">
+
+            <!-- Dashboard -->
+
+            <section
+    id="dashboard"
+    class="content-section"
+>
+
+    <h1>Admin Dashboard</h1>
+
+    <div class="dashboard-cards">
+
+        <div class="dashboard-card">
+
+            <h3>Total Students</h3>
+
+            <p id="totalStudents">0</p>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <h3>Total Courses</h3>
+
+            <p id="totalCourses">0</p>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <h3>Students Enrolled</h3>
+
+            <p id="totalEnrolledStudents">0</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+            <!-- Students -->
+
+            <section id="students" class="content-section hidden">
+
+    <h1>All Students</h1>
+
+    <table id="studentsTable">
+
+        <thead>
+
+            <tr>
+                <th>Student ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Email</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="studentsTableBody">
+
+        </tbody>
+
+    </table>
+
+</section>
+
+
+            <!-- Register Student -->
+
+            <section
+    id="register-student"
+    class="content-section hidden"
+>
+
+    <h1>Register Student</h1>
+
+    <form id="registerStudentForm">
+
+        <div class="form-group">
+
+            <label for="fname">
+                First Name
+            </label>
+
+            <input
+                type="text"
+                id="fname"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="lname">
+                Last Name
+            </label>
+
+            <input
+                type="text"
+                id="lname"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="age">
+                Age
+            </label>
+
+            <input
+                type="number"
+                id="age"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="gender">
+                Gender
+            </label>
+
+            <select
+                id="gender"
+                required
+            >
+
+                <option value="">
+                    Select Gender
+                </option>
+
+                <option value="Male">
+                    Male
+                </option>
+
+                <option value="Female">
+                    Female
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="email_id">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email_id"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Register Student
+        </button>
+
+    </form>
+
+
+    <p id="registerMessage"></p>
+
+</section>
+
+
+            <!-- Change Student -->
+
+            <section
+    id="change-student"
+    class="content-section hidden"
+>
+
+    <h1>Change Student Details</h1>
+
+
+    <form id="changeStudentForm">
+
+        <div class="form-group">
+
+            <label for="changeStudentId">
+                Student ID
+            </label>
+
+            <input
+                type="number"
+                id="changeStudentId"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="changeFname">
+                First Name
+            </label>
+
+            <input
+                type="text"
+                id="changeFname"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="changeLname">
+                Last Name
+            </label>
+
+            <input
+                type="text"
+                id="changeLname"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="changeAge">
+                Age
+            </label>
+
+            <input
+                type="number"
+                id="changeAge"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="changeGender">
+                Gender
+            </label>
+
+            <select
+                id="changeGender"
+                required
+            >
+
+                <option value="">
+                    Select Gender
+                </option>
+
+                <option value="Male">
+                    Male
+                </option>
+
+                <option value="Female">
+                    Female
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="changeEmail">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="changeEmail"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Update Student
+        </button>
+
+    </form>
+
+
+    <p id="changeStudentMessage"></p>
+
+</section>
+
+
+            <!-- Remove Student -->
+
+            <section
+    id="remove-student"
+    class="content-section hidden"
+>
+
+    <h1>Remove Student</h1>
+
+
+    <form id="removeStudentForm">
+
+        <div class="form-group">
+
+            <label for="removeStudentId">
+                Student ID
+            </label>
+
+            <input
+                type="number"
+                id="removeStudentId"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Remove Student
+        </button>
+
+    </form>
+
+
+    <p id="removeStudentMessage"></p>
+
+</section>
+
+
+            <!-- Enroll Student -->
+
+            <section
+    id="enroll-student"
+    class="content-section hidden"
+>
+
+    <h1>Enroll Student into Course</h1>
+
+
+    <form id="enrollStudentForm">
+
+        <div class="form-group">
+
+            <label for="enrollStudentId">
+                Student ID
+            </label>
+
+            <input
+                type="number"
+                id="enrollStudentId"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="enrollCourseId">
+                Course ID
+            </label>
+
+            <input
+                type="number"
+                id="enrollCourseId"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Enroll Student
+        </button>
+
+    </form>
+
+
+    <p id="enrollStudentMessage"></p>
+
+</section>
+
+            <!-- Remove Enrollment -->
+
+            <section
+    id="remove-enrollment"
+    class="content-section hidden"
+>
+
+    <h1>Remove Student from Course</h1>
+
+
+    <form id="removeEnrollmentForm">
+
+        <div class="form-group">
+
+            <label for="removeEnrollmentStudentId">
+                Student ID
+            </label>
+
+            <input
+                type="number"
+                id="removeEnrollmentStudentId"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="removeEnrollmentCourseId">
+                Course ID
+            </label>
+
+            <input
+                type="number"
+                id="removeEnrollmentCourseId"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Remove Student from Course
+        </button>
+
+    </form>
+
+
+    <p id="removeEnrollmentMessage"></p>
+
+</section>
+
+
+            <!-- Courses -->
+
+            <section
+    id="courses"
+    class="content-section hidden"
+>
+
+    <h1>All Courses</h1>
+
+
+    <table id="coursesTable">
+
+        <thead>
+
+            <tr>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Credits</th>
+            </tr>
+
+        </thead>
+
+
+        <tbody id="coursesTableBody">
+
+        </tbody>
+
+    </table>
+
+</section>
+
+            <!-- Add Course -->
+
+            <section
+    id="add-course"
+    class="content-section hidden"
+>
+
+    <h1>Add Course</h1>
+
+
+    <form id="addCourseForm">
+
+        <div class="form-group">
+
+            <label for="courseName">
+                Course Name
+            </label>
+
+            <input
+                type="text"
+                id="courseName"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="courseCredits">
+                Credits
+            </label>
+
+            <input
+                type="number"
+                id="courseCredits"
+                min="1"
+                max="6"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            Add Course
+        </button>
+
+    </form>
+
+</section>
+
+
+
+
+<!-- Enrolled Students -->
+
+<section
+    id="enrollments"
+    class="content-section hidden"
+>
+
+    <h1>Enrolled Students and Courses</h1>
+
+    <table id="enrollmentsTable">
+
+        <thead>
+
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Enrolled On</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="enrollmentsTableBody"></tbody>
+
+    </table>
+
+</section>
+
+        </main>
+
+    </div>
+
+
+    <script src="/static/js/admin/admin.js"></script>
+
+</body>
+
+</html>
