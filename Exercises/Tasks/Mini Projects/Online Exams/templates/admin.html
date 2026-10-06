@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Online Examination - Admin</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <!-- =========================================
+             Sidebar
+        ========================================== -->
+
+        <aside class="admin-sidebar">
+
+            <h2>Admin Panel</h2>
+
+            <p id="adminName"></p>
+
+            <hr>
+
+            <div class="sidebar-section">
+
+                <h3>Students</h3>
+
+                <button id="seeStudentsBtn">
+                    See All Students
+                </button>
+
+            </div>
+
+
+            <button id="logoutBtn">
+                Logout
+            </button>
+
+        </aside>
+
+
+        <!-- =========================================
+             Main Content
+        ========================================== -->
+
+        <main class="admin-content">
+
+            <h1>Admin Dashboard</h1>
+
+            <p id="message"></p>
+
+
+            <!-- =====================================
+                 Students Section
+            ====================================== -->
+
+            <section id="studentsSection">
+
+                <h2>All Students</h2>
+
+                <div id="studentsContainer">
+
+                    <p>Loading students...</p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="/static/js/admin/admin.js"></script>
+
+</body>
+
+</html>

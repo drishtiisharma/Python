@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <h2>Online Exam</h2>
+
+            <ul>
+
+                <li>
+                    <a href="/student">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Available Exams
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        My Exams
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Results
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="logoutBtn">
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside>
+
+        <main class="main-content">
+
+            <h1>Student Dashboard</h1>
+
+            <p id="welcomeMessage">
+                Loading...
+            </p>
+
+            <div class="student-card">
+
+                <h2>My Details</h2>
+
+                <p>
+                    <strong>First Name:</strong>
+                    <span id="fname"></span>
+                </p>
+
+                <p>
+                    <strong>Last Name:</strong>
+                    <span id="lname"></span>
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    <span id="email"></span>
+                </p>
+
+                <p>
+                    <strong>User ID:</strong>
+                    <span id="userId"></span>
+                </p>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="/static/js/student/student.js"></script>
+
+</body>
+
+</html>

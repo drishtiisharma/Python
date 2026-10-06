@@ -16,6 +16,31 @@ role enum('student','admin') default 'student',
 created_at datetime default current_timestamp
 );
 
+select * from users;
+
+insert into users (fname,lname,email,password_hash,role) 
+values
+('Rohit', 'Sharma', 'rsharma24@gmail.com','rsh145','student');
+
+insert into users (fname,lname,email,password_hash,role) 
+values
+('Issac', 'Newton', 'issac@gmail.com','inewton','admin');
+
+
+
+
+
+SELECT user_id, fname, lname, email, password_hash, role
+FROM users;
+
+COMMIT;
+
+
+
+SELECT *
+FROM users
+WHERE email = 'rsharma24@gmail.com';
+
 
 -- for subjects
 
@@ -79,7 +104,7 @@ status enum("in_progress","submitted") default "in_progress",
 
 foreign key (user_id) references users(user_id),
 
-foreign key (user_id) references exams(exam_id),
+foreign key (exam_id) references exams(exam_id),
 
 unique(user_id, exam_id)
 );
@@ -119,6 +144,5 @@ results_status enum('pass','fail') not null,
 generated_at datetime default current_timestamp,
 
 foreign key (attempt_id) references exam_attempts(attempt_id) on delete cascade);
-
 
 
