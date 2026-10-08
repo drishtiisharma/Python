@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>See All Students</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+
+            <h2>Admin Panel</h2>
+
+            <div class="sidebar-section">
+
+                <h3>Dashboard</h3>
+
+                <button
+                    onclick="window.location.href='/admin'"
+                >
+                    Dashboard
+                </button>
+
+            </div>
+
+
+            <div class="sidebar-section">
+
+                <h3>Students</h3>
+
+                <button
+                    onclick="window.location.href='/admin/students'"
+                >
+                    See All Students
+                </button>
+
+                <button
+                    onclick="window.location.href='/admin/students/add'"
+                >
+                    Add Student
+                </button>
+
+            </div>
+
+
+            <div class="sidebar-section">
+
+                <button id="logoutBtn">
+                    Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+
+        <main class="admin-content">
+
+            <h1>All Students</h1>
+
+            <p id="message"></p>
+
+
+            <!-- Students Table -->
+
+            <div id="studentsContainer">
+
+                <p>Loading students...</p>
+
+            </div>
+
+
+            <!-- Edit Student Form -->
+
+            <div
+                id="editStudentForm"
+                style="display: none;"
+            >
+
+                <h2>Edit Student</h2>
+
+
+                <input
+                    type="hidden"
+                    id="editUserId"
+                >
+
+
+                <label>
+                    First Name
+                </label>
+
+                <input
+                    type="text"
+                    id="editFname"
+                >
+
+
+                <label>
+                    Last Name
+                </label>
+
+                <input
+                    type="text"
+                    id="editLname"
+                >
+
+
+                <label>
+                    Role
+                </label>
+
+                <select id="editRole">
+
+                    <option value="student">
+                        Student
+                    </option>
+
+                    <option value="admin">
+                        Admin
+                    </option>
+
+                </select>
+
+
+                <button id="saveStudentBtn">
+                    Save
+                </button>
+
+                <button id="cancelEditBtn">
+                    Cancel
+                </button>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script src="/static/js/admin/see_all_students.js"></script>
+
+</body>
+
+</html>

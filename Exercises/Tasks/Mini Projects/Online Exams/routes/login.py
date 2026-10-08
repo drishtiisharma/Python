@@ -2,6 +2,9 @@ import secrets
 
 from database import get_connection
 
+from utils.responses import send_json, get_json_body
+from utils.sessions import get_session_id, sessions
+
 
 # -------------------------------------------------
 # Login
@@ -109,3 +112,112 @@ def logout(session_id, sessions):
     return {
         "success": True
     }
+
+
+# =================================================
+# HTTP API
+# =================================================
+
+# -------------------------------------------------
+# Login API
+# -------------------------------------------------
+
+def login_api(handler):
+
+    data = get_json_body(handler)
+
+    if not data:
+
+        send_json(
+            handler,
+            {
+                "success": False,
+                "message": "Invalid request body"
+            },
+            400
+        )
+
+        return
+
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+
+        send_json(
+            handler,
+            {
+                "success": False,
+                "message": "Email and password are required"
+            },
+            400
+        )
+
+        return
+
+    result = login(
+        email,
+        password,
+        sessions
+    )
+
+    if not result["success"]:
+
+        send_json(
+            handler,
+            result,
+            401
+        )
+
+        return
+
+    session_id = result["session_id"]
+
+    send_json(
+        handler,
+        {
+            "success": True,
+            "role": result["role"],
+            "user": result["user"]
+        },
+        200,
+        headers={
+            "Set-Cookie": (
+                f"session_id={session_id}; "
+                "HttpOnly; "
+                "Path=/"
+            )
+        }
+    )
+
+
+# -------------------------------------------------
+# Logout API
+# -------------------------------------------------
+
+def logout_api(handler):
+
+    session_id = get_session_id(handler)
+
+    if session_id:
+
+        logout(
+            session_id,
+            sessions
+        )
+
+    send_json(
+        handler,
+        {
+            "success": True
+        },
+        200,
+        headers={
+            "Set-Cookie": (
+                "session_id=; "
+                "HttpOnly; "
+                "Path=/; "
+                "Max-Age=0"
+            )
+        }
+    )
