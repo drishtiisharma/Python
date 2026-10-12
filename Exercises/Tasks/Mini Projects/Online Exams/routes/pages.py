@@ -1,6 +1,12 @@
 from utils.sessions import get_session
 from utils.files import serve_html
+def signup_page(handler, base_dir):
 
+    serve_html(
+        handler,
+        base_dir,
+        "signup/signup.html"
+    )
 
 def login_page(handler, base_dir):
 

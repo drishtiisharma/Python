@@ -115,6 +115,61 @@ button {
     background-color: #444;
 }
 
+/* =================================================
+   Signup Page
+================================================= */
+
+.login-box h2 {
+    text-align: center;
+
+    margin-top: 0;
+
+    margin-bottom: 25px;
+
+    font-size: 22px;
+}
+
+
+/* Signup button */
+
+#signupForm button {
+    width: 100%;
+
+    background-color: #222;
+
+    color: white;
+
+    padding: 12px;
+
+    font-size: 16px;
+}
+
+#signupForm button:hover {
+    background-color: #444;
+}
+
+
+/* Login link on signup page */
+
+.login-box > p {
+    text-align: center;
+
+    margin-top: 20px;
+}
+
+.login-box > p a {
+    color: #222;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+.login-box > p a:hover {
+    text-decoration: underline;
+}
+
+
 
 /* =================================================
    Messages

@@ -1,10 +1,12 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
+from routes.signup.api import signup_api
 import os
 
 
 from routes.pages import (
     login_page,
+    signup_page,
     student_page,
     admin_page,
     admin_students_page,
@@ -54,6 +56,9 @@ STATIC_FILES = {
     "/static/js/login.js":
         ("static/js/login.js", "application/javascript"),
 
+    "/static/js/signup.js":
+        ("static/js/signup.js", "application/javascript"),
+
     "/static/js/student/student.js":
         ("static/js/student/student.js", "application/javascript"),
 
@@ -92,6 +97,16 @@ class MyHandler(BaseHTTPRequestHandler):
         if path == "/":
 
             login_page(
+                self,
+                BASE_DIR
+            )
+
+            return
+
+
+        if path == "/signup":
+
+            signup_page(
                 self,
                 BASE_DIR
             )
@@ -202,6 +217,12 @@ class MyHandler(BaseHTTPRequestHandler):
         if path == "/api/login":
 
             login_api(self)
+
+            return
+
+        if path == "/api/signup":
+
+            signup_api(self)
 
             return
 
