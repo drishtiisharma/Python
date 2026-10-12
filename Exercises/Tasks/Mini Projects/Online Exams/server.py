@@ -1,8 +1,9 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse
-from routes.signup.api import signup_api
+
 import os
 
+from routes.signup.api import signup_api
 
 from routes.pages import (
     login_page,
@@ -19,7 +20,9 @@ from routes.login import (
 )
 
 from routes.student.api import (
-    student_details_api
+    student_details_api,
+    update_student_profile_api,
+    change_student_password_api
 )
 
 from routes.admin.api import (
@@ -214,11 +217,20 @@ class MyHandler(BaseHTTPRequestHandler):
         path = parsed_url.path
 
 
+        # -----------------------------
+        # Login
+        # -----------------------------
+
         if path == "/api/login":
 
             login_api(self)
 
             return
+
+
+        # -----------------------------
+        # Signup
+        # -----------------------------
 
         if path == "/api/signup":
 
@@ -227,6 +239,10 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        # -----------------------------
+        # Logout
+        # -----------------------------
+
         if path == "/api/logout":
 
             logout_api(self)
@@ -234,12 +250,20 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        # -----------------------------
+        # Add student
+        # -----------------------------
+
         if path == "/api/admin/students":
 
             add_student_api(self)
 
             return
 
+
+        # -----------------------------
+        # Not found
+        # -----------------------------
 
         self.send_error(
             404,
@@ -257,6 +281,32 @@ class MyHandler(BaseHTTPRequestHandler):
         path = parsed_url.path
 
 
+        # -----------------------------
+        # Student profile
+        # -----------------------------
+
+        if path == "/api/student/profile":
+
+            update_student_profile_api(self)
+
+            return
+
+
+        # -----------------------------
+        # Student password
+        # -----------------------------
+
+        if path == "/api/student/password":
+
+            change_student_password_api(self)
+
+            return
+
+
+        # -----------------------------
+        # Admin update student
+        # -----------------------------
+
         if path.startswith(
             "/api/admin/students/"
         ):
@@ -268,6 +318,10 @@ class MyHandler(BaseHTTPRequestHandler):
 
             return
 
+
+        # -----------------------------
+        # Not found
+        # -----------------------------
 
         self.send_error(
             404,
@@ -285,6 +339,10 @@ class MyHandler(BaseHTTPRequestHandler):
         path = parsed_url.path
 
 
+        # -----------------------------
+        # Admin delete student
+        # -----------------------------
+
         if path.startswith(
             "/api/admin/students/"
         ):
@@ -296,6 +354,10 @@ class MyHandler(BaseHTTPRequestHandler):
 
             return
 
+
+        # -----------------------------
+        # Not found
+        # -----------------------------
 
         self.send_error(
             404,

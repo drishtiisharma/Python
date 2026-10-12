@@ -94,7 +94,116 @@
 
             </div>
 
+            <div class="profile-actions">
+
+                <button id="editProfileBtn">
+                    Edit Profile
+                </button>
+
+                <button id="changePasswordBtn">
+                    Change Password
+                </button>
+
+            </div>
+
+            <div id="editProfileSection" class="edit-profile-section">
+
+                <h2>Edit Profile</h2>
+
+                <form id="editProfileForm">
+
+                    <div class="form-group">
+                        <label for="editFname">First Name</label>
+                        <input
+                            type="text"
+                            id="editFname"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editLname">Last Name</label>
+                        <input
+                            type="text"
+                            id="editLname"
+                            required
+                        >
+                    </div>
+
+
+                    <button type="submit">
+                        Save Changes
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelEditBtn"
+                    >
+                        Cancel
+                    </button>
+
+                </form>
+
+                <p id="editProfileMessage"></p>
+
+            </div>
+
         </main>
+
+    </div>
+
+    <div id="passwordModal" class="password-modal">
+
+        <div class="password-modal-content">
+
+            <span
+                id="closePasswordModal"
+                class="close-password-modal"
+            >
+                &times;
+            </span>
+
+            <h2>Change Password</h2>
+
+            <form id="changePasswordForm">
+
+                <div class="form-group">
+
+                    <label for="oldPassword">
+                        Old Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="oldPassword"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="newPassword">
+                        New Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="newPassword"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit">
+                    Change Password
+                </button>
+
+                <p id="passwordMessage"></p>
+
+            </form>
+
+        </div>
 
     </div>
 
