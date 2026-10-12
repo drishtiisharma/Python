@@ -123,3 +123,35 @@ def admin_add_student_page(handler, base_dir):
         base_dir,
         "admin/add_student.html"
     )
+
+
+
+# -------------------------------------------------
+# Other Admins Page
+# -------------------------------------------------
+
+def admin_admins_page(handler, base_dir):
+
+    session = get_session(handler)
+
+    if not session:
+
+        handler.send_response(302)
+        handler.send_header("Location", "/")
+        handler.end_headers()
+
+        return
+
+    if session["role"] != "admin":
+
+        handler.send_response(302)
+        handler.send_header("Location", "/student")
+        handler.end_headers()
+
+        return
+
+    serve_html(
+        handler,
+        base_dir,
+        "admin/see_all_admins.html"
+    )

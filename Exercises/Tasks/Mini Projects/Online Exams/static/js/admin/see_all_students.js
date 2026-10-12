@@ -162,7 +162,7 @@ async function loadStudents() {
 
                         <td>
                             ${student.created_at}
-                        </td>
+                        </td> 
 
                         <td class="actions-cell">
 

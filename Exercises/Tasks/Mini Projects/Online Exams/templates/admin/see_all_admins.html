@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Other Admins</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+
+            <h2>Admin Panel</h2>
+
+            <div class="sidebar-section">
+
+                <h3>Dashboard</h3>
+
+                <button
+                    onclick="window.location.href='/admin'"
+                >
+                    Dashboard
+                </button>
+
+            </div>
+
+            <div class="sidebar-section">
+
+                <h3>Students</h3>
+
+                <button
+                    onclick="window.location.href='/admin/students'"
+                >
+                    See All Students
+                </button>
+
+                <button
+                    onclick="window.location.href='/admin/students/add'"
+                >
+                    Add Student
+                </button>
+
+            </div>
+
+            <div class="sidebar-section">
+
+                <h3>Admins</h3>
+
+                <button
+                    onclick="window.location.href='/admin/admins'"
+                >
+                    See Other Admins
+                </button>
+
+            </div>
+
+            <div class="sidebar-section">
+
+                <button id="logoutBtn">
+                    Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+
+        <main class="admin-content">
+
+            <h1>Other Admins</h1>
+
+            <p id="message"></p>
+
+            <!-- Admin Table -->
+
+            <section>
+
+                <h2>All Other Admins</h2>
+
+                <div id="adminsContainer">
+                    Loading admins...
+                </div>
+
+            </section>
+
+
+            <!-- Edit Admin Form -->
+
+            <section
+                id="editAdminForm"
+                style="display: none;"
+            >
+
+                <h2>Edit Admin</h2>
+
+                <input
+                    type="hidden"
+                    id="editAdminId"
+                >
+
+                <div>
+
+                    <label for="editAdminFname">
+                        First Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editAdminFname"
+                        required
+                    >
+
+                </div>
+
+                <div>
+
+                    <label for="editAdminLname">
+                        Last Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editAdminLname"
+                        required
+                    >
+
+                </div>
+
+                <div>
+
+                    <button id="saveAdminBtn">
+                        Save Changes
+                    </button>
+
+                    <button id="cancelEditBtn">
+                        Cancel
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="/static/js/admin/see_all_admins.js"></script>
+
+</body>
+
+</html>

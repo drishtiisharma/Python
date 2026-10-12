@@ -11,7 +11,8 @@ from routes.pages import (
     student_page,
     admin_page,
     admin_students_page,
-    admin_add_student_page
+    admin_add_student_page,
+    admin_admins_page
 )
 
 from routes.login import (
@@ -31,6 +32,13 @@ from routes.admin.api import (
     update_student_api,
     delete_student_api
 )
+
+from routes.admin.api import (
+    get_admins_api,
+    update_admin_api,
+    delete_admin_api
+)
+
 
 from utils.files import serve_static
 
@@ -72,7 +80,11 @@ STATIC_FILES = {
         ("static/js/admin/see_all_students.js", "application/javascript"),
 
     "/static/js/admin/add_student.js":
-        ("static/js/admin/add_student.js", "application/javascript")
+        ("static/js/admin/add_student.js", "application/javascript"),
+
+    
+    "/static/js/admin/see_all_admins.js":
+        ("static/js/admin/see_all_admins.js", "application/javascript"),
 }
 
 
@@ -136,6 +148,17 @@ class MyHandler(BaseHTTPRequestHandler):
 
             return
 
+        
+        if path == "/admin/admins":
+
+            admin_admins_page(
+                self,
+                BASE_DIR
+            )
+
+            return
+
+
 
         if path == "/admin/students":
 
@@ -177,6 +200,14 @@ class MyHandler(BaseHTTPRequestHandler):
             get_students_api(self)
 
             return
+
+        
+        if path == "/api/admin/admins":
+
+            get_admins_api(self)
+
+            return
+
 
 
         # -----------------------------
@@ -319,6 +350,17 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        
+        if path.startswith("/api/admin/admins/"):
+
+            update_admin_api(
+                self,
+                path
+            )
+
+            return
+
+
         # -----------------------------
         # Not found
         # -----------------------------
@@ -353,6 +395,17 @@ class MyHandler(BaseHTTPRequestHandler):
             )
 
             return
+
+        
+        if path.startswith("/api/admin/admins/"):
+
+            delete_admin_api(
+                self,
+                path
+            )
+
+            return
+
 
 
         # -----------------------------
