@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Exams - Admin Panel</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+
+            <div class="sidebar-section">
+                <h3>Dashboard</h3>
+                <button onclick="window.location.href='/admin'">
+                    Dashboard
+                </button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Exams</h3>
+                <button onclick="window.location.href='/admin/exams'" class="active-nav">
+                    Manage Exams
+                </button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Students</h3>
+                <button onclick="window.location.href='/admin/students'">
+                    See All Students
+                </button>
+                <button onclick="window.location.href='/admin/students/add'">
+                    Add Student
+                </button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Admins</h3>
+                <button onclick="window.location.href='/admin/admins'">
+                    See Other Admins
+                </button>
+            </div>
+
+            <div class="sidebar-section">
+                <button id="logoutBtn">
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+
+            <div class="page-header">
+                <div>
+                    <h1>Exam Management</h1>
+                    <p class="page-subtitle">Create, configure, and manage online tests and subjects</p>
+                </div>
+                <div class="header-actions">
+                    <button id="openSubjectModalBtn" class="btn-secondary">
+                        + New Subject
+                    </button>
+                    <button id="openExamModalBtn" class="btn-primary">
+                        + Create Exam
+                    </button>
+                </div>
+            </div>
+
+            <p id="message"></p>
+
+            <!-- Stats Bar -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Total Exams</span>
+                    <span id="statTotalExams" class="stat-value">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Published</span>
+                    <span id="statPublishedExams" class="stat-value text-success">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Drafts</span>
+                    <span id="statDraftExams" class="stat-value text-warning">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Subjects</span>
+                    <span id="statTotalSubjects" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="filterSubject">Filter by Subject:</label>
+                    <select id="filterSubject">
+                        <option value="all">All Subjects</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterStatus">Status:</label>
+                    <select id="filterStatus">
+                        <option value="all">All Statuses</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Exams Table Container -->
+            <div id="examsContainer">
+                <p>Loading exams...</p>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Modal: Create New Exam -->
+    <div id="createExamModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Exam</h2>
+                <span id="closeCreateExamModal" class="close-modal">&times;</span>
+            </div>
+
+            <form id="createExamForm">
+                <div class="form-group">
+                    <label for="createExamName">Exam Title *</label>
+                    <input type="text" id="createExamName" placeholder="e.g. Python Fundamentals Quiz" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="createExamSubject">Subject *</label>
+                    <div class="select-with-action">
+                        <select id="createExamSubject" required>
+                            <option value="">Select a subject...</option>
+                        </select>
+                        <button type="button" id="quickAddSubjectBtn" class="btn-small">
+                            + Add Subject
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="createExamDesc">Description</label>
+                    <textarea id="createExamDesc" rows="3" placeholder="Brief summary, guidelines, or instructions for students..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="createExamDuration">Duration (Minutes) *</label>
+                        <input type="number" id="createExamDuration" min="1" max="600" value="30" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createExamTotalMarks">Total Marks *</label>
+                        <input type="number" id="createExamTotalMarks" min="1" value="20" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createExamPassMarks">Passing Marks *</label>
+                        <input type="number" id="createExamPassMarks" min="0" value="8" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="createExamStartTime">Start Schedule (Optional)</label>
+                        <input type="datetime-local" id="createExamStartTime">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createExamEndTime">End Schedule (Optional)</label>
+                        <input type="datetime-local" id="createExamEndTime">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createExamStatus">Initial Status *</label>
+                        <select id="createExamStatus" required>
+                            <option value="draft">Draft (Hidden from students)</option>
+                            <option value="published">Published (Visible to students)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelCreateExamBtn" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Create Exam</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Edit Exam -->
+    <div id="editExamModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Exam</h2>
+                <span id="closeEditExamModal" class="close-modal">&times;</span>
+            </div>
+
+            <form id="editExamForm">
+                <input type="hidden" id="editExamId">
+
+                <div class="form-group">
+                    <label for="editExamName">Exam Title *</label>
+                    <input type="text" id="editExamName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editExamSubject">Subject *</label>
+                    <select id="editExamSubject" required>
+                        <option value="">Select a subject...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editExamDesc">Description</label>
+                    <textarea id="editExamDesc" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editExamDuration">Duration (Minutes) *</label>
+                        <input type="number" id="editExamDuration" min="1" max="600" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editExamTotalMarks">Total Marks *</label>
+                        <input type="number" id="editExamTotalMarks" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editExamPassMarks">Passing Marks *</label>
+                        <input type="number" id="editExamPassMarks" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editExamStartTime">Start Schedule (Optional)</label>
+                        <input type="datetime-local" id="editExamStartTime">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editExamEndTime">End Schedule (Optional)</label>
+                        <input type="datetime-local" id="editExamEndTime">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editExamStatus">Status *</label>
+                        <select id="editExamStatus" required>
+                            <option value="draft">Draft (Hidden)</option>
+                            <option value="published">Published (Active)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelEditExamBtn" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add Subject -->
+    <div id="addSubjectModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Add New Subject</h2>
+                <span id="closeSubjectModal" class="close-modal">&times;</span>
+            </div>
+
+            <form id="addSubjectForm">
+                <div class="form-group">
+                    <label for="subjectNameInput">Subject Name *</label>
+                    <input type="text" id="subjectNameInput" placeholder="e.g. Computer Networks" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subjectDescInput">Description (Optional)</label>
+                    <textarea id="subjectDescInput" rows="2" placeholder="Brief subject description..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelSubjectBtn" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Subject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/admin/exams.js"></script>
+
+</body>
+
+</html>

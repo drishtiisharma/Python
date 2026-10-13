@@ -12,7 +12,11 @@ from routes.pages import (
     admin_page,
     admin_students_page,
     admin_add_student_page,
-    admin_admins_page
+    admin_admins_page,
+    admin_exams_page,
+    student_exams_page,
+    student_quiz_page,
+    student_results_page
 )
 
 from routes.login import (
@@ -23,7 +27,15 @@ from routes.login import (
 from routes.student.api import (
     student_details_api,
     update_student_profile_api,
-    change_student_password_api
+    change_student_password_api,
+    get_available_exams_api,
+    start_exam_attempt_api,
+    get_attempt_quiz_data_api,
+    save_student_answer_api,
+    submit_exam_attempt_api,
+    get_attempt_result_api,
+    get_student_results_api,
+    get_detailed_result_api
 )
 
 from routes.admin.api import (
@@ -37,6 +49,17 @@ from routes.admin.api import (
     get_admins_api,
     update_admin_api,
     delete_admin_api
+)
+
+from routes.admin.api import (
+    get_subjects_api,
+    add_subject_api,
+    get_exams_api,
+    get_exam_by_id_api,
+    add_exam_api,
+    update_exam_api,
+    delete_exam_api,
+    toggle_exam_status_api
 )
 
 
@@ -85,6 +108,18 @@ STATIC_FILES = {
     
     "/static/js/admin/see_all_admins.js":
         ("static/js/admin/see_all_admins.js", "application/javascript"),
+
+    "/static/js/admin/exams.js":
+        ("static/js/admin/exams.js", "application/javascript"),
+
+    "/static/js/student/exams.js":
+        ("static/js/student/exams.js", "application/javascript"),
+
+    "/static/js/student/quiz.js":
+        ("static/js/student/quiz.js", "application/javascript"),
+
+    "/static/js/student/results.js":
+        ("static/js/student/results.js", "application/javascript"),
 }
 
 
@@ -139,6 +174,36 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        if path == "/student/exams":
+
+            student_exams_page(
+                self,
+                BASE_DIR
+            )
+
+            return
+
+
+        if path == "/student/quiz":
+
+            student_quiz_page(
+                self,
+                BASE_DIR
+            )
+
+            return
+
+
+        if path == "/student/results":
+
+            student_results_page(
+                self,
+                BASE_DIR
+            )
+
+            return
+
+
         if path == "/admin":
 
             admin_page(
@@ -180,6 +245,16 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        if path == "/admin/exams":
+
+            admin_exams_page(
+                self,
+                BASE_DIR
+            )
+
+            return
+
+
         # -----------------------------
         # Student API
         # -----------------------------
@@ -189,6 +264,51 @@ class MyHandler(BaseHTTPRequestHandler):
             student_details_api(self)
 
             return
+
+
+        if path == "/api/student/exams":
+
+            get_available_exams_api(self)
+
+            return
+
+
+        if path.startswith("/api/student/attempts/") and path.endswith("/result"):
+
+            get_attempt_result_api(
+                self,
+                path
+            )
+
+            return
+
+
+        if path.startswith("/api/student/attempts/"):
+
+            get_attempt_quiz_data_api(
+                self,
+                path
+            )
+
+            return
+
+
+        if path == "/api/student/results":
+
+            get_student_results_api(self)
+
+            return
+
+
+        if path.startswith("/api/student/results/"):
+
+            get_detailed_result_api(
+                self,
+                path
+            )
+
+            return
+
 
 
         # -----------------------------
@@ -205,6 +325,27 @@ class MyHandler(BaseHTTPRequestHandler):
         if path == "/api/admin/admins":
 
             get_admins_api(self)
+
+            return
+
+
+        if path == "/api/admin/subjects":
+
+            get_subjects_api(self)
+
+            return
+
+
+        if path == "/api/admin/exams":
+
+            get_exams_api(self)
+
+            return
+
+
+        if path.startswith("/api/admin/exams/"):
+
+            get_exam_by_id_api(self, path)
 
             return
 
@@ -292,6 +433,54 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        if path == "/api/admin/subjects":
+
+            add_subject_api(self)
+
+            return
+
+
+        if path == "/api/admin/exams":
+
+            add_exam_api(self)
+
+            return
+
+
+        # -----------------------------
+        # Student Quiz Attempts
+        # -----------------------------
+
+        if path.startswith("/api/student/exams/") and path.endswith("/start"):
+
+            start_exam_attempt_api(
+                self,
+                path
+            )
+
+            return
+
+
+        if path.startswith("/api/student/attempts/") and path.endswith("/answer"):
+
+            save_student_answer_api(
+                self,
+                path
+            )
+
+            return
+
+
+        if path.startswith("/api/student/attempts/") and path.endswith("/submit"):
+
+            submit_exam_attempt_api(
+                self,
+                path
+            )
+
+            return
+
+
         # -----------------------------
         # Not found
         # -----------------------------
@@ -361,6 +550,26 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        if path.startswith("/api/admin/exams/") and path.endswith("/status"):
+
+            toggle_exam_status_api(
+                self,
+                path
+            )
+
+            return
+
+
+        if path.startswith("/api/admin/exams/"):
+
+            update_exam_api(
+                self,
+                path
+            )
+
+            return
+
+
         # -----------------------------
         # Not found
         # -----------------------------
@@ -400,6 +609,16 @@ class MyHandler(BaseHTTPRequestHandler):
         if path.startswith("/api/admin/admins/"):
 
             delete_admin_api(
+                self,
+                path
+            )
+
+            return
+
+
+        if path.startswith("/api/admin/exams/"):
+
+            delete_exam_api(
                 self,
                 path
             )

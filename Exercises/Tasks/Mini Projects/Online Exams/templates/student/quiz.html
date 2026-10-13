@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz - Examination in Progress</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body class="quiz-body">
+
+    <!-- Sticky Exam Topbar -->
+    <header class="quiz-topbar">
+        <div class="topbar-left">
+            <h2 id="topbarExamName">Loading Exam...</h2>
+            <span id="topbarSubjectName" class="subject-tag">Subject</span>
+        </div>
+
+        <div class="topbar-center">
+            <div id="quizTimerBox" class="quiz-timer-box">
+                <span class="timer-icon">⏱</span>
+                <span class="timer-label">Time Remaining:</span>
+                <span id="timerDisplay" class="timer-value">--:--</span>
+            </div>
+        </div>
+
+        <div class="topbar-right">
+            <button id="openSubmitModalBtn" class="btn-submit-exam">
+                Submit Exam
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Quiz Interface -->
+    <main class="quiz-main-container">
+
+        <!-- Question Section -->
+        <section class="question-panel">
+            <div class="question-header">
+                <div>
+                    <span id="questionCounter" class="question-index-tag">Question 1 of 5</span>
+                    <span id="questionMarks" class="question-marks-tag">5 Marks</span>
+                </div>
+                <span id="saveStatus" class="save-status-indicator">All changes saved</span>
+            </div>
+
+            <div class="question-body">
+                <p id="questionText" class="question-text">
+                    Loading question...
+                </p>
+
+                <!-- Options List -->
+                <div id="optionsContainer" class="options-container">
+                    <!-- Populated dynamically by quiz.js -->
+                </div>
+            </div>
+
+            <div class="question-navigation-footer">
+                <button type="button" id="prevQuestionBtn" class="btn-secondary">
+                    &larr; Previous
+                </button>
+
+                <div class="footer-center-actions">
+                    <button type="button" id="clearSelectionBtn" class="btn-outline">
+                        Clear Answer
+                    </button>
+                </div>
+
+                <button type="button" id="nextQuestionBtn" class="btn-primary">
+                    Next &rarr;
+                </button>
+            </div>
+        </section>
+
+        <!-- Question Palette / Overview Sidebar -->
+        <aside class="palette-sidebar">
+            <h3>Question Palette</h3>
+            <p class="palette-subtitle">Click any number to jump to question</p>
+
+            <div class="palette-legend">
+                <div class="legend-item">
+                    <span class="legend-color color-answered"></span>
+                    <span>Answered</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color color-unanswered"></span>
+                    <span>Unanswered</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color color-active"></span>
+                    <span>Current</span>
+                </div>
+            </div>
+
+            <div id="paletteGrid" class="palette-grid">
+                <!-- Dynamically generated question buttons -->
+            </div>
+
+            <div class="palette-summary">
+                <div class="summary-line">
+                    <span>Total Questions:</span>
+                    <strong id="summaryTotal">0</strong>
+                </div>
+                <div class="summary-line">
+                    <span>Answered:</span>
+                    <strong id="summaryAnswered" class="text-success">0</strong>
+                </div>
+                <div class="summary-line">
+                    <span>Remaining:</span>
+                    <strong id="summaryRemaining" class="text-warning">0</strong>
+                </div>
+            </div>
+
+            <button id="sidebarSubmitBtn" class="btn-submit-exam btn-full-width">
+                Finish & Submit Exam
+            </button>
+        </aside>
+
+    </main>
+
+    <!-- Modal: Confirmation Before Submitting -->
+    <div id="submitConfirmModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Submit Examination</h2>
+                <span id="closeSubmitModal" class="close-modal">&times;</span>
+            </div>
+
+            <div class="submit-dialog-content">
+                <p>Are you sure you want to finish and submit your quiz?</p>
+
+                <div class="submission-recap-box">
+                    <div class="recap-row">
+                        <span>Total Questions:</span>
+                        <strong id="modalTotalQuestions">0</strong>
+                    </div>
+                    <div class="recap-row">
+                        <span>Questions Answered:</span>
+                        <strong id="modalAnsweredQuestions" class="text-success">0</strong>
+                    </div>
+                    <div class="recap-row">
+                        <span>Unanswered Questions:</span>
+                        <strong id="modalUnansweredQuestions" class="text-warning">0</strong>
+                    </div>
+                </div>
+
+                <p class="alert-note">
+                    ⚠️ You will not be able to change your answers after submission.
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="cancelSubmitBtn" class="btn-secondary">
+                    Review Answers
+                </button>
+                <button type="button" id="finalSubmitBtn" class="btn-primary btn-submit-exam">
+                    Confirm Submission
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Scorecard / Result -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content modal-small text-center">
+            <div class="result-header">
+                <div id="resultBadgeIcon" class="result-icon-badge">🎉</div>
+                <h2 id="resultTitle">Quiz Completed!</h2>
+                <span id="resultStatusBadge" class="badge badge-published">PASS</span>
+            </div>
+
+            <div class="result-scorecard">
+                <div class="score-main">
+                    <span class="score-number" id="resultScore">0</span>
+                    <span class="score-total" id="resultTotalMarks">/ 0 Marks</span>
+                </div>
+                <p class="score-percentage" id="resultPercentage">0%</p>
+
+                <div class="score-breakdown-grid">
+                    <div class="breakdown-box">
+                        <span class="b-label">Correct</span>
+                        <strong class="b-val text-success" id="resCorrect">0</strong>
+                    </div>
+                    <div class="breakdown-box">
+                        <span class="b-label">Wrong</span>
+                        <strong class="b-val text-danger" id="resWrong">0</strong>
+                    </div>
+                    <div class="breakdown-box">
+                        <span class="b-label">Unanswered</span>
+                        <strong class="b-val text-warning" id="resUnanswered">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer justify-center" style="gap: 12px; flex-wrap: wrap;">
+                <button type="button" id="viewFullReviewBtn" class="btn-primary">
+                    View Full Review &rarr;
+                </button>
+                <button type="button" id="backToExamsBtn" class="btn-secondary">
+                    Back to Exams
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/student/quiz.js"></script>
+
+</body>
+
+</html>

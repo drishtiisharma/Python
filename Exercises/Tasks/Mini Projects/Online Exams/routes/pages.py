@@ -155,3 +155,128 @@ def admin_admins_page(handler, base_dir):
         base_dir,
         "admin/see_all_admins.html"
     )
+
+
+# -------------------------------------------------
+# Admin Exams Management Page
+# -------------------------------------------------
+
+def admin_exams_page(handler, base_dir):
+
+    session = get_session(handler)
+
+    if not session:
+
+        handler.send_response(302)
+        handler.send_header("Location", "/")
+        handler.end_headers()
+
+        return
+
+    if session["role"] != "admin":
+
+        handler.send_response(302)
+        handler.send_header("Location", "/student")
+        handler.end_headers()
+
+        return
+
+    serve_html(
+        handler,
+        base_dir,
+        "admin/exams.html"
+    )
+
+
+# -------------------------------------------------
+# Student Available Exams Page
+# -------------------------------------------------
+
+def student_exams_page(handler, base_dir):
+
+    session = get_session(handler)
+
+    if not session:
+
+        handler.send_response(302)
+        handler.send_header("Location", "/")
+        handler.end_headers()
+
+        return
+
+    if session["role"] != "student":
+
+        handler.send_response(302)
+        handler.send_header("Location", "/admin")
+        handler.end_headers()
+
+        return
+
+    serve_html(
+        handler,
+        base_dir,
+        "student/exams.html"
+    )
+
+
+# -------------------------------------------------
+# Student Quiz Attempt Page
+# -------------------------------------------------
+
+def student_quiz_page(handler, base_dir):
+
+    session = get_session(handler)
+
+    if not session:
+
+        handler.send_response(302)
+        handler.send_header("Location", "/")
+        handler.end_headers()
+
+        return
+
+    if session["role"] != "student":
+
+        handler.send_response(302)
+        handler.send_header("Location", "/admin")
+        handler.end_headers()
+
+        return
+
+    serve_html(
+        handler,
+        base_dir,
+        "student/quiz.html"
+    )
+
+
+# -------------------------------------------------
+# Student Results Page
+# -------------------------------------------------
+
+def student_results_page(handler, base_dir):
+
+    session = get_session(handler)
+
+    if not session:
+
+        handler.send_response(302)
+        handler.send_header("Location", "/")
+        handler.end_headers()
+
+        return
+
+    if session["role"] != "student":
+
+        handler.send_response(302)
+        handler.send_header("Location", "/admin")
+        handler.end_headers()
+
+        return
+
+    serve_html(
+        handler,
+        base_dir,
+        "student/results.html"
+    )
+

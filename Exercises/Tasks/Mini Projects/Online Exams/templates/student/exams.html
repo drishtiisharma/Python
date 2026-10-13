@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Exams - Student Portal</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Student Sidebar -->
+        <aside class="sidebar">
+            <h2>Online Exam</h2>
+
+            <ul>
+                <li>
+                    <a href="/student">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/student/exams" class="active-student-nav">
+                        Available Exams
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/student/results">
+                        My Results
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/student">
+                        My Details
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="logoutBtn">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <div class="page-header">
+                <div>
+                    <h1>Available Exams</h1>
+                    <p class="page-subtitle">
+                        Published examinations ready for you to attempt
+                    </p>
+                </div>
+
+                <div class="student-welcome-badge">
+                    <span id="studentNameBadge">Student</span>
+                </div>
+            </div>
+
+            <p id="message"></p>
+
+            <!-- Filter / Search Toolbar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="filterSubject">Subject:</label>
+                    <select id="filterSubject">
+                        <option value="all">All Subjects</option>
+                    </select>
+                </div>
+
+                <div class="filter-group" style="flex: 1; max-width: 320px;">
+                    <label for="searchExam">Search:</label>
+                    <input
+                        type="text"
+                        id="searchExam"
+                        placeholder="Search exam title..."
+                        style="width: 100%; padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 5px;"
+                    >
+                </div>
+            </div>
+
+            <!-- Available Exams Container -->
+            <div id="availableExamsContainer">
+                <p>Loading available exams...</p>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Modal: Start Exam Confirmation -->
+    <div id="startExamModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2 id="modalExamTitle">Start Exam</h2>
+                <span id="closeStartExamModal" class="close-modal">&times;</span>
+            </div>
+
+            <div class="exam-instructions">
+                <p id="modalExamSubject" class="subject-tag" style="margin-bottom: 12px; display: inline-block;"></p>
+                <p id="modalExamDesc" style="color: #475569; margin-bottom: 15px; font-size: 14px;"></p>
+
+                <div class="instruction-box">
+                    <h4>Test Guidelines:</h4>
+                    <ul>
+                        <li>Duration: <strong id="modalExamDuration"></strong></li>
+                        <li>Total Marks: <strong id="modalExamMarks"></strong></li>
+                        <li>Passing Marks: <strong id="modalExamPass"></strong></li>
+                        <li>The timer begins as soon as you proceed.</li>
+                        <li>Ensure you have a stable network connection.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="cancelStartBtn" class="btn-secondary">Cancel</button>
+                <button type="button" id="confirmStartBtn" class="btn-primary">Begin Test</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/student/exams.js"></script>
+
+</body>
+
+</html>

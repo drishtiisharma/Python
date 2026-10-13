@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Exam Results - Student Portal</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Student Sidebar -->
+        <aside class="sidebar">
+            <h2>Online Exam</h2>
+
+            <ul>
+                <li>
+                    <a href="/student">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/student/exams">
+                        Available Exams
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/student/results" class="active-student-nav">
+                        My Results
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/student">
+                        My Details
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="logoutBtn">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <div class="page-header">
+                <div>
+                    <h1>My Results</h1>
+                    <p class="page-subtitle">
+                        View your submitted test scores, evaluation breakdown, and detailed question reviews
+                    </p>
+                </div>
+
+                <div class="student-welcome-badge">
+                    <span id="studentNameBadge">Student</span>
+                </div>
+            </div>
+
+            <!-- Stats Overview Banner -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Tests Taken</span>
+                    <span class="stat-value" id="statTotalTests">0</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Passed</span>
+                    <span class="stat-value text-success" id="statPassedTests">0</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Failed</span>
+                    <span class="stat-value text-danger" id="statFailedTests">0</span>
+                </div>
+
+                <div class="stat-card">
+                    <span class="stat-label">Average Score</span>
+                    <span class="stat-value" id="statAvgScore">0%</span>
+                </div>
+            </div>
+
+            <!-- Filter & Search Toolbar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="filterSubject">Subject:</label>
+                    <select id="filterSubject">
+                        <option value="all">All Subjects</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filterStatus">Status:</label>
+                    <select id="filterStatus">
+                        <option value="all">All Results</option>
+                        <option value="pass">Passed</option>
+                        <option value="fail">Failed</option>
+                    </select>
+                </div>
+
+                <div class="filter-group" style="flex: 1; max-width: 300px;">
+                    <label for="searchExam">Search:</label>
+                    <input
+                        type="text"
+                        id="searchExam"
+                        placeholder="Search exam name..."
+                        style="width: 100%; padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 5px;"
+                    >
+                </div>
+            </div>
+
+            <!-- Results List / Table Container -->
+            <div id="resultsContainer">
+                <p class="loading-state">Loading your results...</p>
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Modal: Detailed Scorecard & Question Review -->
+    <div id="detailedReviewModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalReviewExamTitle">Exam Scorecard</h2>
+                    <p class="modal-subtitle" id="modalReviewExamSubject">Subject</p>
+                </div>
+                <span id="closeReviewModal" class="close-modal">&times;</span>
+            </div>
+
+            <div class="modal-body" id="modalReviewBody">
+                <!-- Dynamically loaded scorecard and question breakdown -->
+                <p class="loading-state">Loading review details...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/student/results.js"></script>
+
+</body>
+
+</html>
