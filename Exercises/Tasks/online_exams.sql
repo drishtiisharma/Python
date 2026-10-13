@@ -69,6 +69,11 @@ foreign key (subject_id) references subjects(subject_id),
 foreign key (created_by) references users(user_id)
 );
 
+
+ALTER TABLE exams
+ADD COLUMN status ENUM('draft', 'published')
+DEFAULT 'draft' NOT NULL;
+
 -- for questions
 
 create table questions(
