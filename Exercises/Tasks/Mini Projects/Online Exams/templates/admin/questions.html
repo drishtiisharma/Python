@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Questions - Admin Panel</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+    .question-form-card,.question-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:20px;margin:18px 0}
+    .option-editor{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;margin:10px 0}
+    .option-editor input[type=text]{width:100%;box-sizing:border-box}
+    .question-card h3{margin-top:0;white-space:pre-wrap}
+    .question-option{padding:8px 10px;border-radius:6px;background:#f8fafc;margin:7px 0}
+    .correct-option{border:1px solid #16a34a;background:#f0fdf4}
+    .question-actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+    .correct-label{color:#15803d;font-weight:600}
+    .question-note{color:#64748b;font-size:14px}
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <h2>Admin Panel</h2>
+      <div class="sidebar-section"><h3>Dashboard</h3><button onclick="location.href='/admin'">Dashboard</button></div>
+      <div class="sidebar-section"><h3>Exams</h3><button onclick="location.href='/admin/exams'" class="active-nav">Manage Exams</button></div>
+      <div class="sidebar-section"><h3>Students</h3><button onclick="location.href='/admin/students'">See All Students</button><button onclick="location.href='/admin/students/add'">Add Student</button></div>
+      <div class="sidebar-section"><h3>Results</h3><button onclick="location.href='/admin/results'">Student Results</button></div>
+      <div class="sidebar-section"><h3>Admins</h3><button onclick="location.href='/admin/admins'">See Other Admins</button></div>
+      <div class="sidebar-section"><button id="logoutBtn">Logout</button></div>
+    </aside>
+    <main class="admin-content">
+      <div class="page-header"><div><h1>Manage Questions</h1><p class="page-subtitle" id="examSubtitle">Loading exam...</p></div><button class="btn-secondary" onclick="location.href='/admin/exams'">← Back to Exams</button></div>
+      <p id="message" role="status"></p>
+      <section class="question-form-card">
+        <h2 id="formTitle">Add Question</h2>
+        <form id="questionForm">
+          <div class="form-group"><label for="questionText">Question *</label><textarea id="questionText" rows="3" required maxlength="5000" placeholder="Enter the question"></textarea></div>
+          <div class="form-group" style="max-width:180px"><label for="questionMarks">Marks *</label><input id="questionMarks" type="number" min="1" max="1000" value="1" required></div>
+          <h3>Answer options</h3><p class="question-note">Enter all four options and select exactly one correct answer.</p>
+          <div id="optionsEditor"></div>
+          <div class="question-actions"><button type="submit" class="btn-primary" id="saveQuestionBtn">Save Question</button><button type="button" class="btn-secondary" id="cancelEditBtn" hidden>Cancel Edit</button></div>
+        </form>
+      </section>
+      <section><div class="page-header"><div><h2>Questions in this exam</h2><p class="question-note">Questions can only be changed while the exam is a draft. Unpublish first if you need to edit it.</p></div><strong id="questionCount">0 questions</strong></div><div id="questionsContainer"><p>Loading questions...</p></div></section>
+    </main>
+  </div>
+    <script src="/static/js/dialogs.js"></script>
+    
+  <script src="/static/js/admin/questions.js"></script>
+</body>
+</html>

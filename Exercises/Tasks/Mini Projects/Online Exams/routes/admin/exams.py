@@ -324,26 +324,43 @@ def update_exam(
 
 
 def delete_exam(exam_id):
-    """Deletes an exam and cascades related questions/attempts."""
+    """Delete an exam and all dependent attempt, answer, result, question, and option rows."""
     connection = get_connection()
     cursor = connection.cursor()
 
     try:
-        query = "DELETE FROM exams WHERE exam_id = %s"
-        cursor.execute(query, (exam_id,))
+        cursor.execute("SELECT exam_id FROM exams WHERE exam_id = %s", (exam_id,))
+        if not cursor.fetchone():
+            return {"success": False, "message": "Exam not found."}
+
+        # Delete dependants in foreign-key order. This intentionally removes
+        # historical attempts/results because the admin explicitly deleted the exam.
+        cursor.execute(
+            "DELETE FROM student_answers WHERE attempt_id IN "
+            "(SELECT attempt_id FROM exam_attempts WHERE exam_id = %s)",
+            (exam_id,)
+        )
+        cursor.execute(
+            "DELETE FROM results WHERE attempt_id IN "
+            "(SELECT attempt_id FROM exam_attempts WHERE exam_id = %s)",
+            (exam_id,)
+        )
+        cursor.execute("DELETE FROM exam_attempts WHERE exam_id = %s", (exam_id,))
+        cursor.execute(
+            "DELETE o FROM options o JOIN questions q ON q.question_id = o.question_id "
+            "WHERE q.exam_id = %s",
+            (exam_id,)
+        )
+        cursor.execute("DELETE FROM questions WHERE exam_id = %s", (exam_id,))
+        cursor.execute("DELETE FROM exams WHERE exam_id = %s", (exam_id,))
         connection.commit()
-
-        if cursor.rowcount > 0:
-            return {
-                "success": True,
-                "message": "Exam deleted successfully."
-            }
-
         return {
-            "success": False,
-            "message": "Exam not found."
+            "success": True,
+            "message": "Exam and all associated questions, attempts, answers, and results were deleted."
         }
-
+    except Exception:
+        connection.rollback()
+        raise
     finally:
         cursor.close()
         connection.close()
@@ -365,6 +382,40 @@ def toggle_exam_status(exam_id):
             }
 
         new_status = "published" if exam["status"] == "draft" else "draft"
+
+        # A test must contain valid MCQs before students can access it.
+        if new_status == "published":
+            cursor.execute(
+                "SELECT total_marks FROM exams WHERE exam_id = %s",
+                (exam_id,)
+            )
+            exam_details = cursor.fetchone()
+            cursor.execute(
+                "SELECT question_id, marks FROM questions WHERE exam_id = %s",
+                (exam_id,)
+            )
+            questions = cursor.fetchall()
+            if not questions:
+                return {"success": False, "message": "Add at least one question before publishing this exam."}
+
+            marks_sum = sum(int(q["marks"]) for q in questions)
+            if marks_sum != int(exam_details["total_marks"]):
+                return {
+                    "success": False,
+                    "message": f"Question marks total {marks_sum}, but the exam total is {exam_details['total_marks']}. Make them equal before publishing."
+                }
+
+            for question in questions:
+                cursor.execute(
+                    "SELECT COUNT(*) AS option_count, SUM(is_correct = 1) AS correct_count FROM options WHERE question_id = %s",
+                    (question["question_id"],)
+                )
+                option_summary = cursor.fetchone()
+                if option_summary["option_count"] < 2 or option_summary["correct_count"] != 1:
+                    return {
+                        "success": False,
+                        "message": f"Question #{question['question_id']} must have at least two options and exactly one correct answer."
+                    }
 
         update_cursor = connection.cursor()
         update_cursor.execute(

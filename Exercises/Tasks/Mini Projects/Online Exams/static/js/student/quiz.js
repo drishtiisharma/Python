@@ -6,8 +6,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const attemptId = urlParams.get("attempt_id");
 
 if (!attemptId) {
-    alert("No attempt ID provided.");
-    window.location.href = "/student/exams";
+    showAppDialog("No attempt ID was provided.", { type: "error" })
+        .then(() => { window.location.href = "/student/exams"; });
 }
 
 let attemptInfo = null;
@@ -98,7 +98,7 @@ async function loadQuizData() {
         const data = await response.json();
 
         if (!data.success) {
-            alert(data.message || "Failed to load examination.");
+            await showAppDialog(data.message || "Failed to load examination.", { type: "error" });
             window.location.href = "/student/exams";
             return;
         }
@@ -114,7 +114,7 @@ async function loadQuizData() {
         }
 
         if (questions.length === 0) {
-            alert("This exam currently has no questions configured.");
+            await showAppDialog("This exam currently has no questions configured.", { type: "error" });
             window.location.href = "/student/exams";
             return;
         }
@@ -133,7 +133,7 @@ async function loadQuizData() {
 
     } catch (err) {
         console.error("Error loading quiz:", err);
-        alert("Server error connecting to quiz. Please try again.");
+        await showAppDialog("Server error connecting to quiz. Please try again.", { type: "error" });
     }
 }
 
@@ -153,7 +153,6 @@ function startTimer() {
 
         if (remainingSeconds <= 0) {
             clearInterval(timerInterval);
-            alert("Time has expired! Submitting your exam automatically now.");
             submitExam(true);
         }
     }, 1000);
@@ -409,7 +408,7 @@ async function submitExam(autoSubmitted = false) {
         const data = await response.json();
 
         if (!data.success) {
-            alert(data.message || "Failed to submit exam.");
+            showAppDialog(data.message || "Failed to submit exam.", { type: "error" });
             isSubmitting = false;
             finalSubmitBtn.disabled = false;
             finalSubmitBtn.textContent = "Confirm Submission";
@@ -417,11 +416,14 @@ async function submitExam(autoSubmitted = false) {
         }
 
         closeSubmitConfirmation();
-        displayResult(data.result);
+        showAppDialog(
+            data.message || "Your exam was submitted. Your result will be available after the administrator publishes it.",
+            { title: "Exam submitted", type: "success", okText: "Back to exams" }
+        ).then(() => { window.location.href = "/student/exams"; });
 
     } catch (err) {
         console.error("Submission error:", err);
-        alert("Network error submitting exam. Please check connection and try again.");
+        showAppDialog("Network error submitting exam. Please check connection and try again.", { type: "error" });
         isSubmitting = false;
         finalSubmitBtn.disabled = false;
         finalSubmitBtn.textContent = "Confirm Submission";

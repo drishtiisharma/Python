@@ -277,25 +277,40 @@ function renderExams() {
                 <td style="text-align: center;">
                     <div class="table-actions">
                         <button
-                            class="action-btn btn-status"
-                            title="${isPublished ? 'Unpublish to Draft' : 'Publish to Students'}"
+                            type="button"
+                            class="action-btn btn-status icon-action ${isPublished ? 'is-published' : ''}"
+                            title="${isPublished ? 'Unpublish exam' : 'Publish exam'}"
+                            aria-label="${isPublished ? 'Unpublish exam' : 'Publish exam'}"
                             onclick="handleToggleStatus(${exam.exam_id})"
                         >
-                            ${isPublished ? 'Unpublish' : 'Publish'}
+                            <span aria-hidden="true">${isPublished ? '⏸' : '▶'}</span>
                         </button>
                         <button
-                            class="action-btn btn-edit"
-                            title="Edit Exam"
+                            type="button"
+                            class="action-btn btn-edit icon-action"
+                            title="Manage ${Number(exam.total_questions || 0)} questions"
+                            aria-label="Manage questions"
+                            onclick="window.location.href='/admin/exams/questions?exam_id=${exam.exam_id}'"
+                        >
+                            <span aria-hidden="true">☷</span><span class="action-count">${Number(exam.total_questions || 0)}</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="action-btn btn-edit icon-action"
+                            title="Edit exam"
+                            aria-label="Edit exam"
                             onclick="handleOpenEditModal(${exam.exam_id})"
                         >
-                            Edit
+                            <span aria-hidden="true">✎</span>
                         </button>
                         <button
-                            class="action-btn btn-delete"
-                            title="Delete Exam"
+                            type="button"
+                            class="action-btn btn-delete icon-action"
+                            title="Delete exam"
+                            aria-label="Delete exam"
                             onclick="handleDeleteExam(${exam.exam_id}, '${escapeForJs(exam.exam_name)}')"
                         >
-                            Delete
+                            <span aria-hidden="true">⌫</span>
                         </button>
                     </div>
                 </td>
@@ -351,12 +366,12 @@ if (createExamForm) {
         const status = document.getElementById("createExamStatus").value;
 
         if (passing_marks > total_marks) {
-            alert("Passing marks cannot exceed total marks.");
+            showAppDialog("Passing marks cannot exceed total marks.", { type: "error" });
             return;
         }
 
         if (start_time && end_time && new Date(start_time) >= new Date(end_time)) {
-            alert("End schedule must be later than start schedule.");
+            showAppDialog("End schedule must be later than start schedule.", { type: "error" });
             return;
         }
 
@@ -434,12 +449,12 @@ if (editExamForm) {
         const status = document.getElementById("editExamStatus").value;
 
         if (passing_marks > total_marks) {
-            alert("Passing marks cannot exceed total marks.");
+            showAppDialog("Passing marks cannot exceed total marks.", { type: "error" });
             return;
         }
 
         if (start_time && end_time && new Date(start_time) >= new Date(end_time)) {
-            alert("End schedule must be later than start schedule.");
+            showAppDialog("End schedule must be later than start schedule.", { type: "error" });
             return;
         }
 
@@ -483,7 +498,7 @@ if (editExamForm) {
 // =================================================
 
 window.handleDeleteExam = async function(examId, examName) {
-    if (!confirm(`Are you sure you want to delete the exam "${examName}"?\nAll associated questions, student attempts, and results will also be deleted.`)) {
+    if (!await showAppConfirm(`Delete the exam "${examName}" and permanently remove its questions, attempts, answers, and results? This action cannot be undone.`, { title: "Delete exam" })) {
         return;
     }
 
@@ -546,7 +561,7 @@ if (addSubjectForm) {
         const description = document.getElementById("subjectDescInput").value.trim();
 
         if (!subject_name) {
-            alert("Subject name is required");
+            showAppDialog("Subject name is required", { type: "error" });
             return;
         }
 
@@ -563,7 +578,7 @@ if (addSubjectForm) {
             const data = await response.json();
 
             if (!data.success) {
-                alert(data.message || "Failed to create subject");
+                showAppDialog(data.message || "Failed to create subject", { type: "error" });
                 return;
             }
 
@@ -578,7 +593,7 @@ if (addSubjectForm) {
             }
         } catch (err) {
             console.error("Error adding subject:", err);
-            alert("Network error creating subject");
+            showAppDialog("Network error creating subject", { type: "error" });
         }
     });
 }

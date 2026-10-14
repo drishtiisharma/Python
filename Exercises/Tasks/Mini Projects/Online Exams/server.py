@@ -16,7 +16,9 @@ from routes.pages import (
     admin_exams_page,
     student_exams_page,
     student_quiz_page,
-    student_results_page
+    student_results_page,
+    admin_questions_page,
+    admin_results_page
 )
 
 from routes.login import (
@@ -49,6 +51,15 @@ from routes.admin.api import (
     get_admins_api,
     update_admin_api,
     delete_admin_api
+)
+
+from routes.admin.results_api import get_admin_results_api, toggle_result_publication_api
+
+from routes.admin.questions_api import (
+    get_questions_api,
+    add_question_api,
+    update_question_api,
+    delete_question_api
 )
 
 from routes.admin.api import (
@@ -112,6 +123,9 @@ STATIC_FILES = {
     "/static/js/admin/exams.js":
         ("static/js/admin/exams.js", "application/javascript"),
 
+    "/static/js/admin/questions.js":
+        ("static/js/admin/questions.js", "application/javascript"),
+
     "/static/js/student/exams.js":
         ("static/js/student/exams.js", "application/javascript"),
 
@@ -120,6 +134,12 @@ STATIC_FILES = {
 
     "/static/js/student/results.js":
         ("static/js/student/results.js", "application/javascript"),
+
+    "/static/js/dialogs.js":
+        ("static/js/dialogs.js", "application/javascript"),
+
+    "/static/js/admin/results.js":
+        ("static/js/admin/results.js", "application/javascript"),
 }
 
 
@@ -254,6 +274,19 @@ class MyHandler(BaseHTTPRequestHandler):
 
             return
 
+        if path == "/admin/results":
+            admin_results_page(self, BASE_DIR)
+            return
+
+        if path == "/admin/exams/questions":
+
+            admin_questions_page(
+                self,
+                BASE_DIR
+            )
+
+            return
+
 
         # -----------------------------
         # Student API
@@ -329,6 +362,10 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        if path == "/api/admin/results":
+            get_admin_results_api(self)
+            return
+
         if path == "/api/admin/subjects":
 
             get_subjects_api(self)
@@ -342,6 +379,11 @@ class MyHandler(BaseHTTPRequestHandler):
 
             return
 
+        if path.startswith("/api/admin/exams/") and path.endswith("/questions"):
+
+            get_questions_api(self, path)
+
+            return
 
         if path.startswith("/api/admin/exams/"):
 
@@ -443,6 +485,12 @@ class MyHandler(BaseHTTPRequestHandler):
         if path == "/api/admin/exams":
 
             add_exam_api(self)
+
+            return
+
+        if path.startswith("/api/admin/exams/") and path.endswith("/questions"):
+
+            add_question_api(self, path)
 
             return
 
@@ -550,6 +598,16 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        if path.startswith("/api/admin/questions/"):
+
+            update_question_api(self, path)
+
+            return
+
+        if path.startswith("/api/admin/results/") and path.endswith("/publish"):
+            toggle_result_publication_api(self, path)
+            return
+
         if path.startswith("/api/admin/exams/") and path.endswith("/status"):
 
             toggle_exam_status_api(
@@ -616,6 +674,12 @@ class MyHandler(BaseHTTPRequestHandler):
             return
 
 
+        if path.startswith("/api/admin/questions/"):
+
+            delete_question_api(self, path)
+
+            return
+
         if path.startswith("/api/admin/exams/"):
 
             delete_exam_api(
@@ -642,6 +706,8 @@ class MyHandler(BaseHTTPRequestHandler):
 # -------------------------------------------------
 
 if __name__ == "__main__":
+    from database import ensure_schema_updates
+    ensure_schema_updates()
 
     server = HTTPServer(
         (HOST, PORT),

@@ -176,7 +176,7 @@ function renderExams() {
         }
 
         let actionButtonHtml = "";
-        if (isSubmitted) {
+        if (isSubmitted && exam.result_published) {
             actionButtonHtml = `
                 <button
                     class="btn-secondary btn-completed"
@@ -186,6 +186,12 @@ function renderExams() {
                     ✓ View Result &rarr;
                 </button>
             `;
+        } else if (isSubmitted) {
+            actionButtonHtml = '<span class="result-pending-note">Submitted · result pending publication</span>';
+        } else if (exam.availability_status === "not_started") {
+            actionButtonHtml = '<button class="btn-secondary" disabled title="This exam has not started yet">Scheduled</button>';
+        } else if (exam.availability_status === "expired") {
+            actionButtonHtml = '<button class="btn-secondary" disabled title="The exam window has ended">Closed</button>';
         } else if (isInProgress) {
             actionButtonHtml = `
                 <button
@@ -296,7 +302,7 @@ if (confirmStartBtn) {
             const data = await response.json();
 
             if (!data.success) {
-                alert(data.message || "Failed to start exam.");
+                showAppDialog(data.message || "Failed to start exam.", { title: "Unable to start exam", type: "error" });
                 confirmStartBtn.disabled = false;
                 confirmStartBtn.textContent = "Begin Test";
                 return;
@@ -306,7 +312,7 @@ if (confirmStartBtn) {
             window.location.href = `/student/quiz?attempt_id=${data.attempt_id}`;
         } catch (err) {
             console.error("Error starting exam:", err);
-            alert("Network error starting exam. Please try again.");
+            showAppDialog("Network error starting exam. Please try again.", { title: "Connection problem", type: "error" });
             confirmStartBtn.disabled = false;
             confirmStartBtn.textContent = "Begin Test";
         }

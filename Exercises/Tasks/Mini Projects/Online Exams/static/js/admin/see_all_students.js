@@ -528,8 +528,8 @@ if (cancelEditBtn) {
 async function deleteStudent(userId) {
 
     const confirmed =
-        confirm(
-            "Are you sure you want to delete this student?"
+        await showAppConfirm(
+            "Are you sure you want to delete this student?", { title: "Delete student" }
         );
 
 

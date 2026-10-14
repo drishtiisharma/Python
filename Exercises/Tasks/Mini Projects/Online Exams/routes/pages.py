@@ -280,3 +280,37 @@ def student_results_page(handler, base_dir):
         "student/results.html"
     )
 
+
+
+# -------------------------------------------------
+# Admin Question Management Page
+# -------------------------------------------------
+
+def admin_questions_page(handler, base_dir):
+    session = get_session(handler)
+    if not session:
+        handler.send_response(302)
+        handler.send_header("Location", "/")
+        handler.end_headers()
+        return
+    if session["role"] != "admin":
+        handler.send_response(302)
+        handler.send_header("Location", "/student")
+        handler.end_headers()
+        return
+    serve_html(handler, base_dir, "admin/questions.html")
+
+
+def admin_results_page(handler, base_dir):
+    session = get_session(handler)
+    if not session:
+        handler.send_response(302)
+        handler.send_header("Location", "/")
+        handler.end_headers()
+        return
+    if session.get("role") != "admin":
+        handler.send_response(302)
+        handler.send_header("Location", "/student")
+        handler.end_headers()
+        return
+    serve_html(handler, base_dir, "admin/results.html")

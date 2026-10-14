@@ -8,9 +8,9 @@ from database import get_connection
 
 def get_available_exams(user_id):
     """
-    Fetches all published exams that are currently within their
-    availability window (start_time <= NOW() <= end_time, or NULL),
-    along with student's attempt status if already started/submitted.
+    Fetches all published exams, including scheduled/upcoming exams, so students
+    can see them. The API separately marks exams as not_started/expired, and
+    start_exam_attempt enforces the actual availability window.
     """
     connection = get_connection()
     cursor = connection.cursor(dictionary=True)
@@ -30,14 +30,19 @@ def get_available_exams(user_id):
                 e.end_time,
                 ea.attempt_id,
                 ea.status AS attempt_status,
-                COUNT(q.question_id) AS total_questions
+                r.is_published AS result_published,
+                CASE
+                    WHEN e.start_time IS NOT NULL AND NOW() < e.start_time THEN 'not_started'
+                    WHEN e.end_time IS NOT NULL AND NOW() > e.end_time THEN 'expired'
+                    ELSE 'available'
+                END AS availability_status,
+                COUNT(DISTINCT q.question_id) AS total_questions
             FROM exams e
             JOIN subjects s ON e.subject_id = s.subject_id
             LEFT JOIN exam_attempts ea ON e.exam_id = ea.exam_id AND ea.user_id = %s
+            LEFT JOIN results r ON r.attempt_id = ea.attempt_id
             LEFT JOIN questions q ON e.exam_id = q.exam_id
-            WHERE e.status = 'published'
-              AND (e.start_time IS NULL OR NOW() >= e.start_time)
-              AND (e.end_time IS NULL OR NOW() <= e.end_time)
+            WHERE e.status = 'published' 
             GROUP BY
                 e.exam_id,
                 e.subject_id,
@@ -50,7 +55,9 @@ def get_available_exams(user_id):
                 e.start_time,
                 e.end_time,
                 ea.attempt_id,
-                ea.status
+                ea.status,
+                r.is_published,
+                availability_status
             ORDER BY e.exam_id DESC
         """
         cursor.execute(query, (user_id,))
@@ -397,28 +404,51 @@ def submit_exam_attempt(attempt_id, user_id, final_answers=None):
                 "status_code": 400
             }
 
-        # 2. Save any final batch answers
-        if final_answers and isinstance(final_answers, dict):
+        # 2. Save final answers only after validating that each question and option
+        # belongs to this exam. This prevents forged answer IDs at submission time.
+        if final_answers is not None:
+            if not isinstance(final_answers, dict):
+                return {"success": False, "message": "Invalid answer payload.", "status_code": 400}
             upsert_cursor = connection.cursor()
-            for q_str, opt_id in final_answers.items():
-                try:
-                    qid = int(q_str)
+            try:
+                for q_str, opt_id in final_answers.items():
+                    try:
+                        qid = int(q_str)
+                        opt_id = int(opt_id) if opt_id is not None else None
+                    except (ValueError, TypeError):
+                        connection.rollback()
+                        return {"success": False, "message": "Invalid question or option ID.", "status_code": 400}
+
+                    cursor.execute(
+                        "SELECT question_id FROM questions WHERE question_id = %s AND exam_id = %s",
+                        (qid, attempt["exam_id"])
+                    )
+                    if not cursor.fetchone():
+                        connection.rollback()
+                        return {"success": False, "message": "An answer references a question outside this exam.", "status_code": 400}
+
                     if opt_id is not None:
-                        opt_id = int(opt_id)
-                        upsert_cursor.execute(
-                            """
-                            INSERT INTO student_answers (attempt_id, question_id, selected_option_id, answered_at)
-                            VALUES (%s, %s, %s, NOW())
-                            ON DUPLICATE KEY UPDATE
-                                selected_option_id = VALUES(selected_option_id),
-                                answered_at = NOW()
-                            """,
-                            (attempt_id, qid, opt_id)
+                        cursor.execute(
+                            "SELECT option_id FROM options WHERE option_id = %s AND question_id = %s",
+                            (opt_id, qid)
                         )
-                except (ValueError, TypeError):
-                    continue
-            connection.commit()
-            upsert_cursor.close()
+                        if not cursor.fetchone():
+                            connection.rollback()
+                            return {"success": False, "message": "An answer option does not belong to its question.", "status_code": 400}
+
+                    upsert_cursor.execute(
+                        """
+                        INSERT INTO student_answers (attempt_id, question_id, selected_option_id, answered_at)
+                        VALUES (%s, %s, %s, NOW())
+                        ON DUPLICATE KEY UPDATE
+                            selected_option_id = VALUES(selected_option_id),
+                            answered_at = NOW()
+                        """,
+                        (attempt_id, qid, opt_id)
+                    )
+                connection.commit()
+            finally:
+                upsert_cursor.close()
 
         # 3. Grade the attempt
         # Fetch questions & marks
@@ -532,8 +562,8 @@ def submit_exam_attempt(attempt_id, user_id, final_answers=None):
 
         return {
             "success": True,
-            "message": "Exam submitted and graded successfully.",
-            "result": scorecard
+            "message": "Exam submitted successfully. Your result will be available after the administrator publishes it.",
+            "result_pending": True
         }
 
     finally:
@@ -575,7 +605,7 @@ def get_attempt_result(attempt_id, user_id):
             JOIN exam_attempts ea ON r.attempt_id = ea.attempt_id
             JOIN exams e ON ea.exam_id = e.exam_id
             JOIN subjects s ON e.subject_id = s.subject_id
-            WHERE r.attempt_id = %s AND ea.user_id = %s
+            WHERE r.attempt_id = %s AND ea.user_id = %s AND r.is_published = TRUE
         """
         cursor.execute(query, (attempt_id, user_id))
         result = cursor.fetchone()
@@ -639,7 +669,7 @@ def get_student_all_results(user_id):
             JOIN exam_attempts ea ON r.attempt_id = ea.attempt_id
             JOIN exams e ON ea.exam_id = e.exam_id
             JOIN subjects s ON e.subject_id = s.subject_id
-            WHERE ea.user_id = %s
+            WHERE ea.user_id = %s AND r.is_published = TRUE
             ORDER BY r.generated_at DESC, r.result_id DESC
         """
         cursor.execute(query, (user_id,))
@@ -704,7 +734,7 @@ def get_detailed_attempt_result(attempt_id, user_id):
             JOIN exam_attempts ea ON r.attempt_id = ea.attempt_id
             JOIN exams e ON ea.exam_id = e.exam_id
             JOIN subjects s ON e.subject_id = s.subject_id
-            WHERE r.attempt_id = %s
+            WHERE r.attempt_id = %s AND r.is_published = TRUE
         """
         cursor.execute(scorecard_query, (attempt_id,))
         scorecard = cursor.fetchone()

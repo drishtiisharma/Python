@@ -277,10 +277,13 @@ function renderResults() {
                 </td>
                 <td>
                     <button
-                        class="btn-primary btn-small btn-view-scorecard"
+                        type="button"
+                        class="btn-primary btn-small btn-view-scorecard icon-action"
+                        title="Review test result"
+                        aria-label="Review test result"
                         onclick="openDetailedReview(${r.attempt_id})"
                     >
-                        Review Test &rarr;
+                        <span aria-hidden="true">⌕</span>
                     </button>
                 </td>
             </tr>

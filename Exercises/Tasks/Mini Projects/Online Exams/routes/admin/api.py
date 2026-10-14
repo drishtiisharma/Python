@@ -861,7 +861,10 @@ def delete_exam_api(handler, path):
 
     try:
         result = delete_exam(exam_id)
-        status_code = 200 if result["success"] else 400
+        if result.get("code") == "EXAM_HAS_ATTEMPTS":
+            status_code = 409
+        else:
+            status_code = 200 if result["success"] else 400
         send_json(handler, result, status_code)
     except Exception as e:
         print("Error deleting exam:", e)

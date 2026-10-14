@@ -368,8 +368,8 @@ cancelEditBtn.addEventListener("click", function() {
 
 async function deleteAdmin(userId) {
 
-    const confirmed = confirm(
-        "Are you sure you want to delete this admin account?"
+    const confirmed = await showAppConfirm(
+        "Are you sure you want to delete this admin account?", { title: "Delete admin" }
     );
 
     if (!confirmed) {

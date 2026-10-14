@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Results - Admin Panel</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="admin-layout">
+    <aside class="sidebar">
+        <h2>Admin Panel</h2>
+        <div class="sidebar-section"><h3>Dashboard</h3><button onclick="location.href='/admin'">Dashboard</button></div>
+        <div class="sidebar-section"><h3>Exams</h3><button onclick="location.href='/admin/exams'">Manage Exams</button><button class="active-nav" onclick="location.href='/admin/results'">Student Results</button></div>
+        <div class="sidebar-section"><h3>Students</h3><button onclick="location.href='/admin/students'">See All Students</button><button onclick="location.href='/admin/students/add'">Add Student</button></div>
+        <div class="sidebar-section"><h3>Admins</h3><button onclick="location.href='/admin/admins'">See Other Admins</button></div>
+        <div class="sidebar-section"><button id="logoutBtn">Logout</button></div>
+    </aside>
+    <main class="admin-content">
+        <div class="page-header">
+            <div><h1>Student Results</h1><p class="page-subtitle">Review submitted exam results and control when students can see them.</p></div>
+            <button class="btn-secondary" id="refreshResultsBtn" title="Refresh results">↻ Refresh</button>
+        </div>
+        <p id="message" role="status"></p>
+        <div class="stats-grid">
+            <div class="stat-card"><span class="stat-label">Submitted Results</span><span class="stat-value" id="totalResults">0</span></div>
+            <div class="stat-card"><span class="stat-label">Published</span><span class="stat-value text-success" id="publishedResults">0</span></div>
+            <div class="stat-card"><span class="stat-label">Awaiting Publication</span><span class="stat-value text-warning" id="pendingResults">0</span></div>
+        </div>
+        <div class="filter-bar">
+            <div class="filter-group"><label for="resultStatusFilter">Publication:</label><select id="resultStatusFilter"><option value="all">All results</option><option value="pending">Pending</option><option value="published">Published</option></select></div>
+            <div class="filter-group" style="flex:1;max-width:340px"><label for="resultSearch">Search:</label><input id="resultSearch" type="search" placeholder="Student or exam name" style="width:100%;padding:8px 12px;border:1px solid #cbd5e1;border-radius:5px"></div>
+        </div>
+        <div id="adminResultsContainer"><p class="loading-state">Loading results...</p></div>
+    </main>
+</div>
+<script src="/static/js/dialogs.js"></script>
+<script src="/static/js/admin/results.js"></script>
+</body>
+</html>
