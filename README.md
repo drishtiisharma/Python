@@ -39,7 +39,7 @@ The repository contains two main directories for practical application:
 ### How to Use:
 1. Open the `Python` folder in **VS Code**.
 2. Navigate to `exercises/` for guided practice or `learning/` for free-form coding.
-3. Run, test, and iterate on your code freely.
+3. Run, test, and iterate on your code freely as you like.
 
 ## 🛠️ Recommended Setup
 
